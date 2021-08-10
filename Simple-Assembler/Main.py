@@ -19,12 +19,20 @@ Labelsdict = {}     # to store the labels and their instruction addresses while 
 def TypeA(line):
     array = line.split()
     encoding = ""
+
+    if array[0] not in Instructions:                                    #to check for typos in instructions
+        return 'Error: Invalid Instruction'
+
     if len(array) == 4:
-        if (array[1] not in Registers) or (array[2] not in Registers) or (array[3] not in Registers):      #error in reg name
-            return 'Error: Inavlid Register Name'
+        if (array[1] not in Registers) or (array[2] not in Registers) or (array[3] not in Registers):      
+            return 'Error: Invalid Register Name'                       #error in reg name
+        if (array[1]=='FLAGS') or (array[2]=='FLAGS') or (array[3]=='FLAGS'):
+            return 'Error: Illegal use of flags register'               #to check for illegal use of FLAGS reg
     if len(array) == 3:
         if (array[1] not in Registers) or (array[2] not in Registers):
-            return 'Error: Inavlid Register Name'    
+            return 'Error: Invalid Register Name'
+        if (array[1]=='FLAGS') or (array[2]=='FLAGS'):
+            return 'Error: Illegal use of flags register'    
     pass
 
 # Type B
