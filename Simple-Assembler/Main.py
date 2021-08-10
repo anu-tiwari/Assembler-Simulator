@@ -17,6 +17,14 @@ Labelsdict = {}     # to store the labels and their instruction addresses while 
 
 # Type A
 def TypeA(line):
+    array = line.split()
+    encoding = ""
+    if len(array) == 4:
+        if (array[1] not in Registers) or (array[2] not in Registers) or (array[3] not in Registers):      #error in reg name
+            return 'Error: Inavlid Register Name'
+    if len(array) == 3:
+        if (array[1] not in Registers) or (array[2] not in Registers):
+            return 'Error: Inavlid Register Name'    
     pass
 
 # Type B
