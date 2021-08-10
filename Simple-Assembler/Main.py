@@ -2,6 +2,8 @@
 from Registers import *
 from InstructionDict import *
 
+variabledict = {}
+
 #Type A
 
 #Type B
@@ -9,7 +11,8 @@ from InstructionDict import *
 #Type C
 
 #Type D
-
+def typeD(line):
+    array = line.split()
 #Type E
 
 #Type F
@@ -21,4 +24,4 @@ while True:
         #start here
 
     except EOFError:
-        break;
+        break
