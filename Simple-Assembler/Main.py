@@ -14,6 +14,7 @@ Memory = {}         # to store instruction addresses and variable addresses (cou
 Variabledict = {}   # to store the variables in a queue while parsing the start of the assembly code
 Labelsdict = {}     # to store the labels and their instruction addresses while parsing the first time
 # functions could return an error message if there is an error and return nothing and add in the answer list if there is none
+
 # Type A
 def TypeA(line):
     pass
