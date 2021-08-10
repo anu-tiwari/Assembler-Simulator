@@ -14,19 +14,19 @@ Memory = {}         # to store instruction addresses and variable addresses (cou
 Variabledict = {}   # to store the variables in a queue while parsing the start of the assembly code
 Labelsdict = {}     # to store the labels and their instruction addresses while parsing the first time
 # functions could return an error message if there is an error and return nothing and add in the answer list if there is none
-#Type A
+# Type A
 def TypeA(line):
     pass
 
-#Type B
+# Type B
 def TypeB(line):
     pass
 
-#Type C
+# Type C
 def TypeC(line):
     pass
 
-#Type D
+# Type D
 def TypeD(line):
     array = line.split()
     encoding = ""
@@ -47,14 +47,14 @@ def TypeD(line):
     if array[0] == 'ld' or array[0] == 'st':            # if no errors
         encoding += Instruction[array[0]]['opcode']
         encoding += Registers[array[1]]
-        encoding += Memory[array[2]]
+        encoding += tobinary(Memory[array[2]])
         Answerlist.append(encoding)
 
-#Type E
+# Type E
 def TypeE(line):
     pass
 
-#Type F
+# Type F
 def TypeF(line):
     pass
 
