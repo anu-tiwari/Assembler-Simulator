@@ -58,8 +58,12 @@ def TypeF(line):
     pass
 
 #consider this the main function
-# this loop could be used for just parsing variables and another for other instructions
+
 variablesstart = 0      # could be used for determining from which point variables start in the memory (altho can also use address of halt instruction for this)
+error = ""              # for storing error message
+PC = 0                  # program counter to see which instruction number we're at
+# this loop could be used for just parsing variables and another for other instructions
+
 while True:
     try:
         SingleLine = input()
