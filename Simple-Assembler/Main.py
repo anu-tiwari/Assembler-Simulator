@@ -1,6 +1,7 @@
 #import
 from Registers import *
 from InstructionDict import *
+from helper import *
 # Type A - arithmetic operations - add, sub, mul, xor, or, and
 # Type B - mov, rs, ls
 # Type C -  mov, div, not
