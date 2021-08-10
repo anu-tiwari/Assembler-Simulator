@@ -20,9 +20,6 @@ def TypeA(line):
     array = line.split()
     encoding = ""
 
-    if array[0] not in Instruction:                                    #to check for typos in instructions
-        return 'Error: Invalid Instruction'
-
     if len(array) == 4:
         if (array[1] not in Registers) or (array[2] not in Registers) or (array[3] not in Registers):      
             return 'Error: Invalid Register Name'                       #error in reg name
