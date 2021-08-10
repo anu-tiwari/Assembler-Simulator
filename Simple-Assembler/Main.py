@@ -20,7 +20,7 @@ def TypeA(line):
     array = line.split()
     encoding = ""
 
-    if array[0] not in Instructions:                                    #to check for typos in instructions
+    if array[0] not in Instruction:                                    #to check for typos in instructions
         return 'Error: Invalid Instruction'
 
     if len(array) == 4:
