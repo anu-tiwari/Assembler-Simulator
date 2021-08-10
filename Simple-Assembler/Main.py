@@ -26,7 +26,7 @@ def TypeC(line):
     pass
 
 #Type D
-def typeD(line):
+def TypeD(line):
     array = line.split()
     encoding = ""
     if array[1] not in Registers:                   # error in register name
