@@ -40,7 +40,7 @@ def TypeA(line):
         Answerlist.append(encoding)
 
     else:
-        return 'Error: Incorrect syntax for instructions' #if the given operation doesn't belong to Type A
+        return 'Error: Wrong syntax for instructions' #if the given operation doesn't belong to Type A
 
 
 
