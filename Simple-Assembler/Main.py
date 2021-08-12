@@ -161,28 +161,43 @@ def TypeF(array):
 
 #consider this the main function
 
-variablesstart = 0      # could be used for determining from which point variables start in the memory (altho can also use address of halt instruction for this)
+# variablesstart = 0      # could be used for determining from which point variables start in the memory (altho can also use address of halt instruction for this)
 error = ""              # for storing error message
 PC = 0                  # program counter to see which instruction number we're at
+VC = 0
 # this loop could be used for just parsing variables and another for other instructions
 
 halt = 0
+# while True:
 
+# while True:
+#     if (array)
+#             if (len(array)!=2):
+#                 print('Error: Invalid Variable Declaration')
+#                 break
+#             else:
+#                 VariableList[array[1]]
+
+# create a list with all lines, and append the front set of variables to the end
+# create a list with all lines, and append the front set of variables at their respective positions in the memory array at the beginning
+#  ist ist ist ist ist var var var var 
 while True:
     try:
         SingleLine = input()
         array = SingleLine.split()
 
-        while(array[0]=='var'):
-            if (len(array)!=2):
-                print('Error: Invalid Variable Declaration')
-                break
-            else:
-                VariableList[array[1]]
-
         if SingleLine == "":
             continue
-
+        
+        if (array[0]=='var'):
+            PC+=1
+            VC+=1
+            if (PC==VC):
+                VariableList.append(array[1])
+            else:
+                print('Error: Variable not declared at the beginning')
+                break
+            
         badLabel = 0
 
         if array[0][-1] ==":":
