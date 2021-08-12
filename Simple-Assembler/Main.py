@@ -107,7 +107,12 @@ def TypeE(line):
 
 # Type F
 def TypeF(line):
-    pass
+    array = line.split()
+    encoding = ""
+
+    if array[0] == 'hlt':
+        encoding += Instruction[array[0]]['opcode']
+        encoding += '0'*11
 
 #consider this the main function
 
