@@ -40,13 +40,24 @@ def TypeA(line):
         Answerlist.append(encoding)
 
     else:
-        return 'Error: Incorrect syntax for instructions' #if the given operation doesn't belong to TypeA
+        return 'Error: Incorrect syntax for instructions' #if the given operation doesn't belong to Type A
 
 
 
 # Type B
 def TypeB(line):
-    pass
+    array = line.split()
+    encoding = ""
+
+    if len(array) != 3 or array[2][0] != "$":
+        return "Error: Wrong syntax used for instructions"  #error in syntax
+    
+    if array[1] not in Registers:
+        return "Error: Invalid register name"  #non-existant register
+
+    
+    
+
 
 # Type C
 def TypeC(line):
@@ -58,7 +69,7 @@ def TypeD(line):
     encoding = ""
     if len(array)!=3:
         return 'Error: Invalid Instruction Type Used'
-
+        
     if array[1] not in Registers:                   # error in register name
         return 'Error: Invalid Register Name'
 
