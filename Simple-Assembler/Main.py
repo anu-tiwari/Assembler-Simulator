@@ -20,17 +20,24 @@ def TypeA(line):
     array = line.split()
     encoding = ""
 
-    if len(array) == 4:
-        if (array[1] not in Registers) or (array[2] not in Registers) or (array[3] not in Registers):      
-            return 'Error: Invalid Register Name'                       #error in reg name
-        if (array[1]=='FLAGS') or (array[2]=='FLAGS') or (array[3]=='FLAGS'):
-            return 'Error: Illegal use of flags register'               #to check for illegal use of FLAGS reg
-    if len(array) == 3:
-        if (array[1] not in Registers) or (array[2] not in Registers):
-            return 'Error: Invalid Register Name'
-        if (array[1]=='FLAGS') or (array[2]=='FLAGS'):
-            return 'Error: Illegal use of flags register'    
-    pass
+    if (array[1] not in Registers) or (array[2] not in Registers) or (array[3] not in Registers):
+        return 'Error: Invalid Register Name'            #error in register name
+
+    if (array[1] == 'FLAGS') or (array[2] == 'FLAGS') or (array[3] == 'FLAGS'):
+        return 'Error: Illegal us of flags register'     #illegal use of flags register
+
+       
+    if array[0] == 'add' or array[0] == 'sub' or array[0] == 'mul' or array[0] == 'xor' or array[0] == 'or' or array[0] == 'and':
+
+        encoding += Instruction[array[0]]['opcode']  
+        encoding += '00'                                 #for unused bits
+        encoding += Registers[array[1]]                  
+        encoding += Registers[array[2]]
+        encoding += Registers[array[3]]
+
+        Answerlist.append(encoding)
+
+
 
 # Type B
 def TypeB(line):
