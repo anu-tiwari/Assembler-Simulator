@@ -54,7 +54,7 @@ def TypeB(line):
     if array[1] not in Registers:
         return "Error: Invalid register name"  #non-existant register
 
-    if array[1] == 'FLAGS':
+    if array[1] == "FLAGS":
         return 'Error: Illegal use of flags register'     #illegal use of flags register
 
     if array[0] == "mov" or array[0] == "rs" or array[0] == "ls":
@@ -71,16 +71,17 @@ def TypeB(line):
 def TypeC(line):
     array = line.split()
     encoding = ""
-    if len(array) != 3 :
+
+    if len(array) != 3:
         return "Error: Wrong syntax used for instructions"  #error in syntax
     
-    if array[1] not in Registers:
-        return "Error: Invalid register name"  #non-existant register
+    if (array[1] not in Registers) or (array[2] not in Registers):
+        return "Error: Invalid register name"   #non-existant register
 
-    if array[1] == 'FLAGS':
-        return 'Error: Illegal use of flags register'     #illegal use of flags register
+    if (array[1] == "FLAGS") or (array[2] == "FLAGS"):
+        return 'Error: Illegal use of flags register'   #illegal use of flags register
 
-    if array[0] == "mov" or array[0] == "rs" or array[0] == "ls":
+    if array[0] == "mov" or array[0] == "div" or array[0] == "not" or array[0] == "cmp":
         encoding += Instruction[array[0]]['opcode']  
         encoding += Registers[array[1]]  
         encoding += ToBinary(array[2])
