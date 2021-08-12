@@ -173,7 +173,12 @@ PC = 0                  # program counter to see which instruction number we're 
 while True:
     try:
         SingleLine = input()
-        #start here
-# we'll prolly need to parse the entire code once and store it in a list and then process the list because we need the number of the last instruction to store the variables after it
+        if len(AnswerList) != 0 and AnswerList[-1][:5] == "Error":
+            print(AnswerList[-1])
+        
+        else:
+            #start herel
+            print("Hello world")
+        
     except EOFError:
         break
