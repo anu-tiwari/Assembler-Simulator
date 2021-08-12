@@ -20,6 +20,9 @@ def TypeA(line):
     array = line.split()
     encoding = ""
 
+    if len(array)!=4:
+        return 'Error: Incorrect syntax for instructions'
+
     if (array[1] not in Registers) or (array[2] not in Registers) or (array[3] not in Registers):
         return 'Error: Invalid Register Name'            #error in register name
 
