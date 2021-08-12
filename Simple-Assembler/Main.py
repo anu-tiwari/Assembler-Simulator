@@ -28,14 +28,16 @@ def TypeA(line):
 
        
     if array[0] == 'add' or array[0] == 'sub' or array[0] == 'mul' or array[0] == 'xor' or array[0] == 'or' or array[0] == 'and':
-
+        #to check whether the operation belongs to the type or not
         encoding += Instruction[array[0]]['opcode']  
         encoding += '00'                                 #for unused bits
         encoding += Registers[array[1]]                  
         encoding += Registers[array[2]]
         encoding += Registers[array[3]]
-
         Answerlist.append(encoding)
+
+    else:
+        return 'Error: Incorrect syntax for instructions' #if the given operation doesn't belong to TypeA
 
 
 
