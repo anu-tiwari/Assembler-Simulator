@@ -182,6 +182,5 @@ while True:
             if SingleLine == "":
                 continue
             
-        
     except EOFError:
         break
