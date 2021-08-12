@@ -51,11 +51,13 @@ def TypeC(line):
 def TypeD(line):
     array = line.split()
     encoding = ""
+
     if array[1] not in Registers:                   # error in register name
         return 'Error: Invalid Register Name'
-    # have to check if flags can be used this way or not
+
     if array[1]=='FLAGS':
         return 'Error: Illegal use of flags register'
+        
     if array[2] not in Variabledict:                # error in variable name
         if array[2] in Registers:
             return 'Error: Register used as Variable'
@@ -65,6 +67,7 @@ def TypeD(line):
             return 'Error: Immediate Value used as Variable'
         else:
             return 'Error: Undeclared Variable Used'
+
     if array[0] == 'ld' or array[0] == 'st':            # if no errors
         encoding += Instruction[array[0]]['opcode']
         encoding += Registers[array[1]]
