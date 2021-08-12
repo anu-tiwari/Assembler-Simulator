@@ -174,12 +174,6 @@ while True:
     try:
         SingleLine = input()
 
-        if len(AnswerList) != 0 and AnswerList[-1][:5] == "Error":
-            print(AnswerList[-1])
-        
-        else:
-            if SingleLine == "":
-                continue
         
     except EOFError:
         break
