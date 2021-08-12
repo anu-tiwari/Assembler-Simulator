@@ -173,12 +173,13 @@ PC = 0                  # program counter to see which instruction number we're 
 while True:
     try:
         SingleLine = input()
+
         if len(AnswerList) != 0 and AnswerList[-1][:5] == "Error":
             print(AnswerList[-1])
         
         else:
-            #start herel
-            print("Hello world")
+            if SingleLine == "":
+                continue
         
     except EOFError:
         break
