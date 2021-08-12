@@ -1,4 +1,4 @@
-def tobinary(decimal):
+def ToBinary(decimal):
     # argument must be a decimal number in string datatype
     # returns the binary string of 8 bits (full of leading zeroes if required)
     # returns error if the number requires more than 8 bits or is negative

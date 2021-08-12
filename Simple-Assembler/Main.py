@@ -27,7 +27,7 @@ def TypeA(line):
         return 'Error: Invalid Register Name'            #error in register name
 
     if (array[1] == 'FLAGS') or (array[2] == 'FLAGS') or (array[3] == 'FLAGS'):
-        return 'Error: Illegal us of flags register'     #illegal use of flags register
+        return 'Error: Illegal use of flags register'     #illegal use of flags register
 
        
     if array[0] == 'add' or array[0] == 'sub' or array[0] == 'mul' or array[0] == 'xor' or array[0] == 'or' or array[0] == 'and':
@@ -49,14 +49,23 @@ def TypeB(line):
     array = line.split()
     encoding = ""
 
-    if len(array) != 3 or array[2][0] != "$":
+    if len(array) != 3 or array[2][0] != "$" or array[2] in Registers:
         return "Error: Wrong syntax used for instructions"  #error in syntax
     
     if array[1] not in Registers:
         return "Error: Invalid register name"  #non-existant register
 
+    if array[1] == 'FLAGS':
+        return 'Error: Illegal use of flags register'     #illegal use of flags register
+
+    if array[0] == "mov" or array[0] == "rs" or array[0] == "ls":
+        encoding += Instruction[array[0]]['opcode']  
+        encoding += Registers[array[1]]  
+        encoding += ToBinary(array[2])
+        Answerlist.append(encoding)
     
-    
+    else:
+        return "Error: Wrong syntax used for instructions"  #error in syntax
 
 
 # Type C
@@ -89,7 +98,7 @@ def TypeD(line):
     if array[0] == 'ld' or array[0] == 'st':            # if no errors
         encoding += Instruction[array[0]]['opcode']
         encoding += Registers[array[1]]
-        encoding += tobinary(Memory[array[2]])
+        encoding += ToBinary(Memory[array[2]])
         Answerlist.append(encoding)
 
 # Type E
