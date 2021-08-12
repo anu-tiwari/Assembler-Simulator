@@ -170,10 +170,24 @@ halt = 0
 while True:
     try:
         SingleLine = input()
+
         array = SingleLine.split()
+
 
         if SingleLine == "":
             continue
+
+        badLabel = 0
+
+        if array[0][-1] ==":":
+            for ele in array[0][:-1]:
+                if !ele.isalnum() and ele!='_':
+                    print('Error: Invalid label name')
+                    badLabel = 1
+                    break
+            if badLabel!=1:
+                LabelsDict[array[0]] = PC
+                array.remove(array[0])
 
         if halt == 1:
             print("Error: Halt appeared more than once / in the middle")
@@ -218,6 +232,9 @@ while True:
         elif array[0] == 'hlt':
             halt = 1
             RetString = TypeF(array)
+
+        else:
+            print('Error: Invalid Instruction Type')
 
     except EOFError:
         break
