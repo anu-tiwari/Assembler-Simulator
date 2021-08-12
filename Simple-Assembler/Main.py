@@ -82,16 +82,14 @@ def TypeC(line):
         return 'Error: Illegal use of flags register'   #illegal use of flags register
 
     if array[0] == "mov" or array[0] == "div" or array[0] == "not" or array[0] == "cmp":
-        encoding += Instruction[array[0]]['opcode']  
+        encoding += Instruction[array[0]]['opcode']
+        encoding += "00000"
         encoding += Registers[array[1]]  
-        encoding += ToBinary(array[2])
+        encoding += Registers[array[2]] 
         Answerlist.append(encoding)
     
     else:
         return "Error: Wrong syntax used for instructions"  #error in syntax
-
-
-
 
 
 # Type D
