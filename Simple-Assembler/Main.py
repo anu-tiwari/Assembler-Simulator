@@ -166,10 +166,18 @@ error = ""              # for storing error message
 PC = 0                  # program counter to see which instruction number we're at
 # this loop could be used for just parsing variables and another for other instructions
 
+halt = 0
 while True:
     try:
         SingleLine = input()
         array = SingleLine.split()
+
+        if SingleLine == "":
+            continue
+
+        if halt == 1:
+            print("Error: Halt appeared more than once / in the middle")
+            break
 
         #Type A
         if array[0] == 'add' or array[0] == 'sub' or array[0] == 'mul' or array[0] == 'xor' or array[0] == 'or' or array[0] == 'and':
@@ -180,38 +188,36 @@ while True:
         
         #Type B
         elif array[0] == "mov" or array[0] == "rs" or array[0] == "ls":
-            RetString = TypeA(array)
+            RetString = TypeB(array)
             if RetString != "encoded":
                 print(RetString)
                 break
             
         #Type C    
         elif array[0] == "mov" or array[0] == "div" or array[0] == "not" or array[0] == "cmp":
-            RetString = TypeA(array)
+            RetString = TypeC(array)
             if RetString != "encoded":
                 print(RetString)
                 break
 
         #Type D
         elif array[0] == "ld" or array[0] == "st":
-            RetString = TypeA(array)
+            RetString = TypeD(array)
             if RetString != "encoded":
                 print(RetString)
                 break
 
         #Type E
         elif array[0] == "jmp" or array[0] == "jlt" or array[0] == "jgt" or array[0] == "je":
-            RetString = TypeA(array)
+            RetString = TypeE(array)
             if RetString != "encoded":
                 print(RetString)
                 break
                 
         #Type F
         elif array[0] == 'hlt':
-            RetString = TypeA(array)
-            if RetString != "encoded":
-                print(RetString)
-                break
+            halt = 1
+            RetString = TypeF(array)
 
     except EOFError:
         break
