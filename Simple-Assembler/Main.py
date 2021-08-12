@@ -44,26 +44,11 @@ def TypeA(line):
 
 
 
-# Type B
 def TypeB(line):
     array = line.split()
     encoding = ""
 
-    if len(array) != 3 or array[2][0] != "$":
-        return "Error: Wrong syntax used for instructions"  #error in syntax
-    
-    if array[1] not in Registers:
-        return "Error: Invalid register name"  #non-existant register
-
-    
-    
-
-
-# Type C
-def TypeC(line):
-    array = line.split()
-    encoding = ""
-if len(array) != 3 :
+    if len(array) != 3 or array[2][0] != "$" or array[2] in Registers:
         return "Error: Wrong syntax used for instructions"  #error in syntax
     
     if array[1] not in Registers:
@@ -80,6 +65,32 @@ if len(array) != 3 :
     
     else:
         return "Error: Wrong syntax used for instructions"  #error in syntax
+
+
+# Type C
+def TypeC(line):
+    array = line.split()
+    encoding = ""
+    if len(array) != 3 :
+        return "Error: Wrong syntax used for instructions"  #error in syntax
+    
+    if array[1] not in Registers:
+        return "Error: Invalid register name"  #non-existant register
+
+    if array[1] == 'FLAGS':
+        return 'Error: Illegal use of flags register'     #illegal use of flags register
+
+    if array[0] == "mov" or array[0] == "rs" or array[0] == "ls":
+        encoding += Instruction[array[0]]['opcode']  
+        encoding += Registers[array[1]]  
+        encoding += ToBinary(array[2])
+        Answerlist.append(encoding)
+    
+    else:
+        return "Error: Wrong syntax used for instructions"  #error in syntax
+
+
+
 
 
 # Type D
