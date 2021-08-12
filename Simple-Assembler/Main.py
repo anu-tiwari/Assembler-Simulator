@@ -16,8 +16,7 @@ LabelsDict = {}     # to store the labels and their instruction addresses while 
 # functions could return an error message if there is an error and return nothing and add in the answer list if there is none
 
 # Type A
-def TypeA(line):
-    array = line.split()
+def TypeA(array):
     encoding = ""
 
     if len(array)!=4:
@@ -29,21 +28,17 @@ def TypeA(line):
     if (array[1] == 'FLAGS') or (array[2] == 'FLAGS') or (array[3] == 'FLAGS'):
         return "Error: Illegal use of flags register"    #illegal use of flags register
        
-    if array[0] == 'add' or array[0] == 'sub' or array[0] == 'mul' or array[0] == 'xor' or array[0] == 'or' or array[0] == 'and':    #to check whether the operation belongs to the type or not
-        encoding += Instruction[array[0]]['opcode']  
-        encoding += '00'    #for unused bits
-        encoding += Registers[array[1]]                  
-        encoding += Registers[array[2]]
-        encoding += Registers[array[3]]
-        AnswerList.append(encoding)
-
-    else:
-        return "Error: Incorrect syntax used for instructions"    #if the given operation doesn't belong to Type A
+    encoding += Instruction[array[0]]['opcode']  
+    encoding += '00'    #for unused bits
+    encoding += Registers[array[1]]                  
+    encoding += Registers[array[2]]
+    encoding += Registers[array[3]]
+    AnswerList.append(encoding)
+    return "encoded"
 
 
 #Type B
-def TypeB(line):
-    array = line.split()
+def TypeB(array):
     encoding = ""
 
     if len(array) != 3 or array[2][0] != "$" or array[2] in Registers:
@@ -55,19 +50,23 @@ def TypeB(line):
     if array[1] == "FLAGS":
         return "Error: Illegal use of flags register"    #illegal use of flags register
 
-    if array[0] == "mov" or array[0] == "rs" or array[0] == "ls":
+    if array[0] != "mov":
         encoding += Instruction[array[0]]['opcode']  
         encoding += Registers[array[1]]  
         encoding += ToBinary(array[2])
         AnswerList.append(encoding)
-    
+        return "encoded"
+
     else:
-        return "Error: Incorrect syntax used for instructions"    #if the given operation doesn't belong to Type B
+        encoding += Instruction["movimm"]['opcode']  
+        encoding += Registers[array[1]]  
+        encoding += ToBinary(array[2])
+        AnswerList.append(encoding)
+        return "encoded"
 
 
 # Type C
-def TypeC(line):
-    array = line.split()
+def TypeC(array):
     encoding = ""
 
     if len(array) != 3:
@@ -79,20 +78,24 @@ def TypeC(line):
     if (array[1] == "FLAGS") or (array[2] == "FLAGS"):
         return 'Error: Illegal use of flags register'    #illegal use of flags register
 
-    if array[0] == "mov" or array[0] == "div" or array[0] == "not" or array[0] == "cmp":
+    if array[0] != "mov":
         encoding += Instruction[array[0]]['opcode']
         encoding += "00000"    #for unused bits
         encoding += Registers[array[1]]  
         encoding += Registers[array[2]] 
         AnswerList.append(encoding)
-    
+        return "encoded"
     else:
-        return "Error: Incorrect syntax used for instructions"    #if the given operation doesn't belong to Type C
+        encoding += Instruction["movreg"]['opcode']
+        encoding += "00000"    #for unused bits
+        encoding += Registers[array[1]]  
+        encoding += Registers[array[2]] 
+        AnswerList.append(encoding)
+        return "encoded"
 
 
 # Type D
-def TypeD(line):
-    array = line.split()
+def TypeD(array):
     encoding = ""
 
     if len(array) != 3:
@@ -114,19 +117,15 @@ def TypeD(line):
         else:
             return "Error: Use of Undefined Variable"
 
-    if array[0] == "ld" or array[0] == "st":
-        encoding += Instruction[array[0]]["opcode"]
-        encoding += Registers[array[1]]
-        encoding += ToBinary(Memory[array[2]])
-        AnswerList.append(encoding)
-
-    else:
-        return "Error: Incorrect syntax used for instructions"    #if the given operation doesn't belong to Type D
+    encoding += Instruction[array[0]]["opcode"]
+    encoding += Registers[array[1]]
+    encoding += ToBinary(Memory[array[2]])
+    AnswerList.append(encoding)
+    return "encoded"
 
 
 # Type E
-def TypeE(line):
-    array = line.split()
+def TypeE(array):
     encoding = ""
 
     if len(array) !=2:
@@ -142,25 +141,22 @@ def TypeE(line):
         else:
             return "Error: Use of Undefined Label"
 
-    if array[0] == "jmp" or array[0] == "jlt" or array[0] == "jgt" or array[0] == "je":
-        encoding += Instruction[array[0]]["opcode"]
-        encoding += "000"
-        encoding += ToBinary(LabelsDict(array[1]))
-        AnswerList.append(encoding)
-
-    else:
-        return "Error: Incorrect syntax used for instructions"    #if the given operation doesn't belong to Type E
+    encoding += Instruction[array[0]]["opcode"]
+    encoding += "000"
+    encoding += ToBinary(LabelsDict(array[1]))
+    AnswerList.append(encoding)
+    return "encoded"
 
 
 # Type F
-def TypeF(line):
-    array = line.split()
+def TypeF(array):
     encoding = ""
 
     if array[0] == 'hlt':
         encoding += Instruction[array[0]]['opcode']
         encoding += "0" * 11
         AnswerList.append(encoding)
+        return "encoded"
 
 
 #consider this the main function
@@ -173,6 +169,49 @@ PC = 0                  # program counter to see which instruction number we're 
 while True:
     try:
         SingleLine = input()
+        array = SingleLine.split()
+
+        #Type A
+        if array[0] == 'add' or array[0] == 'sub' or array[0] == 'mul' or array[0] == 'xor' or array[0] == 'or' or array[0] == 'and':
+            RetString = TypeA(array)
+            if RetString != "encoded":
+                print(RetString)
+                break
         
+        #Type B
+        elif array[0] == "mov" or array[0] == "rs" or array[0] == "ls":
+            RetString = TypeA(array)
+            if RetString != "encoded":
+                print(RetString)
+                break
+            
+        #Type C    
+        elif array[0] == "mov" or array[0] == "div" or array[0] == "not" or array[0] == "cmp":
+            RetString = TypeA(array)
+            if RetString != "encoded":
+                print(RetString)
+                break
+
+        #Type D
+        elif array[0] == "ld" or array[0] == "st":
+            RetString = TypeA(array)
+            if RetString != "encoded":
+                print(RetString)
+                break
+
+        #Type E
+        elif array[0] == "jmp" or array[0] == "jlt" or array[0] == "jgt" or array[0] == "je":
+            RetString = TypeA(array)
+            if RetString != "encoded":
+                print(RetString)
+                break
+                
+        #Type F
+        elif array[0] == 'hlt':
+            RetString = TypeA(array)
+            if RetString != "encoded":
+                print(RetString)
+                break
+
     except EOFError:
         break
