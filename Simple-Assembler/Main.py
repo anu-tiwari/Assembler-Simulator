@@ -11,7 +11,7 @@ from helper import *
 
 AnswerList = []       # to store final binary encoding of instructions
 Memory = {}         # to store instruction addresses and variable addresses (could be 0:'mov 1 $10')
-VariableDict = {}   # to store the variables in a queue while parsing the start of the assembly code
+VariableList = []   # to store the variables in a queue while parsing the start of the assembly code
 LabelsDict = {}     # to store the labels and their instruction addresses while parsing the first time (could be label_name: instruction number)
 # functions could return an error message if there is an error and return nothing and add in the answer list if there is none
 
@@ -107,7 +107,7 @@ def TypeD(array):
     if array[1] == "FLAGS":
         return "Error: Illegal use of flags register"    #illegal use of flags register
 
-    if array[2] not in VariableDict:    #error in variable name
+    if array[2] not in VariableList:    #error in variable name
         if array[2] in Registers:
             return "Error: Register used as Variable"
         elif array[2] in LabelsDict:
@@ -132,7 +132,7 @@ def TypeE(array):
         return "Error: Incorrect Syntax used for Instruction"    #error in syntax
 
     if array[1] not in LabelsDict:
-        if array[1] in VariableDict:
+        if array[1] in VariableList:
             return "Error: Variable used as Label"
         elif array[1].isnumeric():
             return "Error: Immediate Value Used as Label"
@@ -167,12 +167,18 @@ PC = 0                  # program counter to see which instruction number we're 
 # this loop could be used for just parsing variables and another for other instructions
 
 halt = 0
+
 while True:
     try:
         SingleLine = input()
-
         array = SingleLine.split()
 
+        while(array[0]=='var'):
+            if (len(array)!=2):
+                print('Error: Invalid Variable Declaration')
+                break
+            else:
+                VariableList[array[1]]
 
         if SingleLine == "":
             continue
@@ -181,7 +187,7 @@ while True:
 
         if array[0][-1] ==":":
             for ele in array[0][:-1]:
-                if !ele.isalnum() and ele!='_':
+                if ele.isalnum()==False and ele!='_':
                     print('Error: Invalid label name')
                     badLabel = 1
                     break
@@ -189,6 +195,8 @@ while True:
                 LabelsDict[array[0]] = PC
                 array.remove(array[0])
 
+        # if array[0]=='var':
+        #     print('Error: Variable declared not at ')
         if halt == 1:
             print("Error: Halt appeared more than once / in the middle")
             break
@@ -199,6 +207,9 @@ while True:
             if RetString != "encoded":
                 print(RetString)
                 break
+            else:
+                PC+=1
+        
         
         #Type B
         elif array[0] == "mov" or array[0] == "rs" or array[0] == "ls":
@@ -206,6 +217,8 @@ while True:
             if RetString != "encoded":
                 print(RetString)
                 break
+            else:
+                PC+=1
             
         #Type C    
         elif array[0] == "mov" or array[0] == "div" or array[0] == "not" or array[0] == "cmp":
@@ -213,6 +226,8 @@ while True:
             if RetString != "encoded":
                 print(RetString)
                 break
+            else:
+                PC+=1
 
         #Type D
         elif array[0] == "ld" or array[0] == "st":
@@ -220,6 +235,8 @@ while True:
             if RetString != "encoded":
                 print(RetString)
                 break
+            else:
+                PC+=1
 
         #Type E
         elif array[0] == "jmp" or array[0] == "jlt" or array[0] == "jgt" or array[0] == "je":
@@ -227,11 +244,18 @@ while True:
             if RetString != "encoded":
                 print(RetString)
                 break
+            else:
+                PC+=1
                 
         #Type F
         elif array[0] == 'hlt':
             halt = 1
             RetString = TypeF(array)
+            if RetString != "encoded":
+                print(RetString)
+                break
+            else:
+                PC+=1
 
         else:
             print('Error: Invalid Instruction Type')
