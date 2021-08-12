@@ -113,6 +113,7 @@ def TypeF(line):
     if array[0] == 'hlt':
         encoding += Instruction[array[0]]['opcode']
         encoding += '0'*11
+        AnswerList.append(encoding)
 
 #consider this the main function
 
