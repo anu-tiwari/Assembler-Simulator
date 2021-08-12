@@ -173,7 +173,14 @@ PC = 0                  # program counter to see which instruction number we're 
 while True:
     try:
         SingleLine = input()
-
+        
+        if len(AnswerList) != 0 and AnswerList[-1][:5] == "Error":
+            print(AnswerList[-1])
+            break
+        
+        else:
+            if SingleLine == "":
+                continue
         
     except EOFError:
         break
