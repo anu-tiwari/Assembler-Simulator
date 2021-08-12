@@ -58,7 +58,7 @@ def TypeD(line):
     encoding = ""
     if len(array)!=3:
         return 'Error: Invalid Instruction Type Used'
-        
+
     if array[1] not in Registers:                   # error in register name
         return 'Error: Invalid Register Name'
 
