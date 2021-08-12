@@ -53,13 +53,15 @@ def TypeC(line):
 def TypeD(line):
     array = line.split()
     encoding = ""
-
+    if len(array)!=3:
+        return 'Error: Invalid Instruction Type Used'
+        
     if array[1] not in Registers:                   # error in register name
         return 'Error: Invalid Register Name'
 
     if array[1]=='FLAGS':
         return 'Error: Illegal use of flags register'
-        
+
     if array[2] not in Variabledict:                # error in variable name
         if array[2] in Registers:
             return 'Error: Register used as Variable'
