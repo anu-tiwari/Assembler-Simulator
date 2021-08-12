@@ -1,4 +1,4 @@
-# Parent class for all grader
+# Parent class for all graders
 from os import listdir
 from os.path import isfile, join
 from utils.colors import bcolors
