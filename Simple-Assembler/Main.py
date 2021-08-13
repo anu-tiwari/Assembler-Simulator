@@ -214,6 +214,7 @@ if array[0]=='var' and error=='':
                             break
                     else:
                         error = 'Invalid Variable Declaration'
+                        break
                 else:
                     break
             except EOFError:
