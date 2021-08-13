@@ -228,16 +228,22 @@ if array[0]=='var' and err != 'printed':
                 array = SingleLine.split()
                 if array[0]=='var':
                     if len(array)==2:
-                        for ele in array[1]:
-                            if ele.isalnum()==0 and ele!='_':
-                                error = 'Error: Invalid Variable Name'
-                                print(error)
-                                err = 'printed'
-                                break
-                        if error=='':
-                            VariableList.append(array[1])
-                        else: 
+                        if array[1] in Instruction or array[1] in Registers or array[1]=='mov':
+                            error = 'Error: Mnemonic used as Variable Name'
+                            print(error)
+                            err = 'printed'
                             break
+                        else:
+                            for ele in array[1]:
+                                if ele.isalnum()==0 and ele!='_':
+                                    error = 'Error: Invalid Variable Name'
+                                    print(error)
+                                    err = 'printed'
+                                    break
+                            if error=='':
+                                VariableList.append(array[1])
+                            else: 
+                                break
                     else:
                         error = 'Error: Invalid Variable Declaration'
                         print(error)
@@ -263,20 +269,25 @@ if err!="printed":
                 Memory[PC]=SingleLine
             elif array[0][-1]==':':
                 # label
-
                 if len(array)>1 and ((array[1] in Instruction and array[1]!='movimm' and array[1]!='movreg') or array[1]=='mov'):
-                    for i in array[0][:-1]:
-                        if i.isalnum()==0 and i!='_':
-                            error = 'Error: Invalid Label Name'
-                            print(error)
-                            err = 'printed'
-                            break
-                        if error=='':
-                            LabelsDict[array[0][:-1]] = PC
-                        else:
-                            break
-                        labelsplit = SingleLine.split(':')
-                        Memory[PC] = labelsplit[1]
+                    if array[1] in Instruction or array[1] in Registers or array[1]=='mov':
+                        error = 'Error: Mnemonic used as Label Name'
+                        print(error)
+                        err = 'printed'
+                        break
+                    else:
+                        for i in array[0][:-1]:
+                            if i.isalnum()==0 and i!='_':
+                                error = 'Error: Invalid Label Name'
+                                print(error)
+                                err = 'printed'
+                                break
+                            if error=='':
+                                LabelsDict[array[0][:-1]] = PC
+                            else:
+                                break
+                            labelsplit = SingleLine.split(':')
+                            Memory[PC] = labelsplit[1]
                 else:
                     error = 'Error: Invalid Label Declaration'
                     print(error)
