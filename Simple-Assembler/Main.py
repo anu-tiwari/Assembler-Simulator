@@ -233,11 +233,12 @@ if error=='':
             if SingleLine=='':
                 continue
             if (array[0] in Instruction and array[0]!='movimm' and array[0]!='movreg') or array[0]=='mov':
-                # instruction is normal instruction wihout label
+                # instruction is normal instruction without label
                 Memory[PC]=SingleLine
             elif array[0][-1]==':':
                 # label
-                if (array[1] in Instruction and array[1]!='movimm' and array[1]!='movreg') or array[1]=='mov':
+
+                if len(array)>1 and ((array[1] in Instruction and array[1]!='movimm' and array[1]!='movreg') or array[1]=='mov'):
                     for i in array[0]:
                         if i.isalnum()==0 and i!='_':
                             error = 'Invalid Label Name'
