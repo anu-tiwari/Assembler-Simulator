@@ -53,15 +53,22 @@ def TypeB(array):
 
     if array[0] != "mov":
         encoding += Instruction[array[0]]['opcode']  
-        encoding += Registers[array[1]]  
-        encoding += ToBinary(array[2])
+        encoding += Registers[array[1]] 
+        if ToBinary(array[2]) == 'overflow error':
+            return "Error: Overflow"
+        else:
+            encoding += ToBinary(array[2])
         AnswerList.append(encoding)
         return "encoded"
 
     else:
         encoding += Instruction["movimm"]['opcode']  
         encoding += Registers[array[1]]  
-        encoding += ToBinary(array[2])
+        if ToBinary(array[2]) == 'overflow error':
+            return "Error: Overflow"
+        else:
+            encoding += ToBinary(array[2])
+        AnswerList.append(encoding)
         AnswerList.append(encoding)
         return "encoded"
 
@@ -313,7 +320,6 @@ if error=='':
         Inst = Memory[key]
         array.append(Inst.split()[0])
 
-        ['mov', 'R1', "R2"]
         #Type A
         if array[0] == 'add' or array[0] == 'sub' or array[0] == 'mul' or array[0] == 'xor' or array[0] == 'or' or array[0] == 'and':
             RetString = TypeA(array)
