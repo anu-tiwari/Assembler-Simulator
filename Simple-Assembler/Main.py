@@ -365,6 +365,8 @@ elif err!='printed':
 #final error check
 if error!='' and err!='printed':
     print(error)
+elif halt == 0:
+    print('Error: hlt instruction not found in code')
 else:
     for line in AnswerList:
         print(line)
