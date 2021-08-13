@@ -276,18 +276,24 @@ if err!="printed":
                         err = 'printed'
                         break
                     else:
-                        for i in array[0][:-1]:
-                            if i.isalnum()==0 and i!='_':
-                                error = 'Error: Invalid Label Name'
-                                print(error)
-                                err = 'printed'
+                        if array[0][:-1].isnumeric()==0:
+                            for i in array[0][:-1]:
+                                if i.isalnum()==0 and i!='_':
+                                    error = 'Error: Invalid Label Name'
+                                    print(error)
+                                    err = 'printed'
+                                    break
+                            if error=='':
+                                LabelsDict[array[0][:-1]] = PC
+                            else:
                                 break
-                        if error=='':
-                            LabelsDict[array[0][:-1]] = PC
+                            labelsplit = SingleLine.split(':')
+                            Memory[PC] = labelsplit[1]
                         else:
+                            error = 'Error: Label Name is Numeric'
+                            print(error)
+                            err = 'printed'
                             break
-                        labelsplit = SingleLine.split(':')
-                        Memory[PC] = labelsplit[1]
                 else:
                     error = 'Error: Invalid Label Declaration'
                     print(error)
@@ -317,18 +323,24 @@ if err!="printed":
                                 err = 'printed'
                                 break
                             else:
-                                for i in array[0][:-1]:
-                                    if i.isalnum()==0 and i!='_':
-                                        error = 'Error: Invalid Label Name'
-                                        print(error)
-                                        err = 'printed'
+                                if array[0][:-1].isnumeric()==0:
+                                    for i in array[0][:-1]:
+                                        if i.isalnum()==0 and i!='_':
+                                            error = 'Error: Invalid Label Name'
+                                            print(error)
+                                            err = 'printed'
+                                            break
+                                    if error=='':
+                                        LabelsDict[array[0][:-1]] = PC
+                                    else:
                                         break
-                                if error=='':
-                                    LabelsDict[array[0][:-1]] = PC
+                                    labelsplit = SingleLine.split(':')
+                                    Memory[PC] = labelsplit[1]
                                 else:
+                                    error = 'Error: Label Name is Numeric'
+                                    print(error)
+                                    err = 'printed'
                                     break
-                                labelsplit = SingleLine.split(':')
-                                Memory[PC] = labelsplit[1]
                         else:
                             error = 'Error: Invalid Label Declaration'
                             print(error)
