@@ -260,7 +260,7 @@ if error=='':
                         labelsplit = SingleLine.split(':')
                         Memory[PC] = labelsplit[1]
                 else:
-                    error = 'Invalid Label Declaration'
+                    error = 'Error: Invalid Label Declaration'
                     break
             else:
                 error = 'Invalid Instruction Mnemonic'
@@ -288,10 +288,10 @@ if error=='':
                                 labelsplit = SingleLine.split(':')
                                 Memory[PC] = labelsplit[1]
                         else:
-                            error = 'Invalid Label Declaration'
+                            error = 'Error: Invalid Label Declaration'
                             break
                     else:
-                        error = 'Invalid Label Declaration'
+                        error = 'Error: Invalid Label Declaration'
                         break
                 elif array[0]=='var':
                     error = 'Error: Variable Declared not at the beginning'
@@ -324,6 +324,8 @@ if error=='':
     for key in Memory:
         if halt == 1:
             print("Error: Halt appeared more than once / in the middle")
+            error = "Error: Halt appeared more than once / in the middle"
+            err = 'printed'
             break
         
         Inst = Memory[key]
@@ -334,6 +336,7 @@ if error=='':
             RetString = TypeA(array)
             if RetString != "encoded":
                 print(RetString)
+                error = RetString
                 err = 'printed'
                 break
         
@@ -343,6 +346,7 @@ if error=='':
             RetString = TypeB(array)
             if RetString != "encoded":
                 print(RetString)
+                error = RetString
                 err = 'printed'
                 break
         
@@ -352,6 +356,7 @@ if error=='':
             RetString = TypeC(array)
             if RetString != "encoded":
                 print(RetString)
+                error = RetString
                 err = 'printed'
                 break
 
@@ -360,6 +365,7 @@ if error=='':
             RetString = TypeD(array)
             if RetString != "encoded":
                 print(RetString)
+                error = RetString
                 err = 'printed'
                 break
 
@@ -368,6 +374,7 @@ if error=='':
             RetString = TypeE(array)
             if RetString != "encoded":
                 print(RetString)
+                error = RetString
                 err = 'printed'
                 break
                 
@@ -375,139 +382,11 @@ if error=='':
         elif array[0] == 'hlt':
             halt = 1
             RetString = TypeF(array)
-            if RetString != "encoded":
-                print(RetString)
-                err = 'printed'
-                break
-
-#print(AnswerList)  
-
-if err!='printed':
-    err='printed'
-    print(error)
+        
 
 #final error check
-if error!='' and err!='printed':
-    print(error)
-elif halt == 0:
+if halt == 0:
     print('Error: hlt instruction not found in code')
-else:
+elif err != 'printed':
     for line in AnswerList:
         print(line)
-
-# # variablesstart = 0      # could be used for determining from which point variables start in the memory (altho can also use address of halt instruction for this)
-# error = ""              # for storing error message
-# PC = 0                  # program counter to see which instruction number we're at
-# VC = 0
-# # this loop could be used for just parsing variables and another for other instructions
-
-# halt = 0
-# # while True:
-
-# # while True:
-# #     if (array)
-# #             if (len(array)!=2):
-# #                 print('Error: Invalid Variable Declaration')
-# #                 break
-# #             else:
-# #                 VariableList[array[1]]
-
-# # create a list with all lines, and append the front set of variables to the end
-# # create a list with all lines, and append the front set of variables at their respective positions in the memory array at the beginning
-# #  ist ist ist ist ist var var var var 
-# while True:
-#     try:
-#         SingleLine = input()
-#         array = SingleLine.split()
-
-#         if SingleLine == "":
-#             continue
-        
-#         if (array[0]=='var'):
-#             PC+=1
-#             VC+=1
-#             if (PC==VC):
-#                 VariableList.append(array[1])
-#             else:
-#                 print('Error: Variable not declared at the beginning')
-#                 break
-            
-#         badLabel = 0
-
-#         if array[0][-1] ==":":
-#             for ele in array[0][:-1]:
-#                 if ele.isalnum()==False and ele!='_':
-#                     print('Error: Invalid label name')
-#                     badLabel = 1
-#                     break
-#             if badLabel!=1:
-#                 LabelsDict[array[0]] = PC
-#                 array.remove(array[0])
-
-#         # if array[0]=='var':
-#         #     print('Error: Variable declared not at ')
-#         if halt == 1:
-#             print("Error: Halt appeared more than once / in the middle")
-#             break
-
-#         #Type A
-#         if array[0] == 'add' or array[0] == 'sub' or array[0] == 'mul' or array[0] == 'xor' or array[0] == 'or' or array[0] == 'and':
-#             RetString = TypeA(array)
-#             if RetString != "encoded":
-#                 print(RetString)
-#                 break
-#             else:
-#                 PC+=1
-        
-        
-#         #Type B
-#         elif array[0] == "mov" or array[0] == "rs" or array[0] == "ls":
-#             RetString = TypeB(array)
-#             if RetString != "encoded":
-#                 print(RetString)
-#                 break
-#             else:
-#                 PC+=1
-            
-#         #Type C    
-#         elif array[0] == "mov" or array[0] == "div" or array[0] == "not" or array[0] == "cmp":
-#             RetString = TypeC(array)
-#             if RetString != "encoded":
-#                 print(RetString)
-#                 break
-#             else:
-#                 PC+=1
-
-#         #Type D
-#         elif array[0] == "ld" or array[0] == "st":
-#             RetString = TypeD(array)
-#             if RetString != "encoded":
-#                 print(RetString)
-#                 break
-#             else:
-#                 PC+=1
-
-#         #Type E
-#         elif array[0] == "jmp" or array[0] == "jlt" or array[0] == "jgt" or array[0] == "je":
-#             RetString = TypeE(array)
-#             if RetString != "encoded":
-#                 print(RetString)
-#                 break
-#             else:
-#                 PC+=1
-                
-#         #Type F
-#         elif array[0] == 'hlt':
-#             halt = 1
-#             RetString = TypeF(array)
-#             if RetString != "encoded":
-#                 print(RetString)
-#                 break
-#             else:
-#                 PC+=1
-
-#         else:
-#             print('Error: Invalid Instruction Type')
-
-#     except EOFError:
-#         break

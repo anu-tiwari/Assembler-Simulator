@@ -260,7 +260,7 @@ if error=='':
                         labelsplit = SingleLine.split(':')
                         Memory[PC] = labelsplit[1]
                 else:
-                    error = 'Error: Invalid Label Declaration'
+                    error = 'Invalid Label Declaration'
                     break
             else:
                 error = 'Invalid Instruction Mnemonic'
@@ -288,10 +288,10 @@ if error=='':
                                 labelsplit = SingleLine.split(':')
                                 Memory[PC] = labelsplit[1]
                         else:
-                            error = 'Error: Invalid Label Declaration'
+                            error = 'Invalid Label Declaration'
                             break
                     else:
-                        error = 'Error: Invalid Label Declaration'
+                        error = 'Invalid Label Declaration'
                         break
                 elif array[0]=='var':
                     error = 'Error: Variable Declared not at the beginning'
@@ -324,8 +324,6 @@ if error=='':
     for key in Memory:
         if halt == 1:
             print("Error: Halt appeared more than once / in the middle")
-            error = "Error: Halt appeared more than once / in the middle"
-            err = 'printed'
             break
         
         Inst = Memory[key]
@@ -336,7 +334,6 @@ if error=='':
             RetString = TypeA(array)
             if RetString != "encoded":
                 print(RetString)
-                error = RetString
                 err = 'printed'
                 break
         
@@ -346,7 +343,6 @@ if error=='':
             RetString = TypeB(array)
             if RetString != "encoded":
                 print(RetString)
-                error = RetString
                 err = 'printed'
                 break
         
@@ -356,7 +352,6 @@ if error=='':
             RetString = TypeC(array)
             if RetString != "encoded":
                 print(RetString)
-                error = RetString
                 err = 'printed'
                 break
 
@@ -365,7 +360,6 @@ if error=='':
             RetString = TypeD(array)
             if RetString != "encoded":
                 print(RetString)
-                error = RetString
                 err = 'printed'
                 break
 
@@ -374,7 +368,6 @@ if error=='':
             RetString = TypeE(array)
             if RetString != "encoded":
                 print(RetString)
-                error = RetString
                 err = 'printed'
                 break
                 
@@ -382,11 +375,22 @@ if error=='':
         elif array[0] == 'hlt':
             halt = 1
             RetString = TypeF(array)
-        
+            if RetString != "encoded":
+                print(RetString)
+                err = 'printed'
+                break
+
+#print(AnswerList)  
+
+if err!='printed':
+    err='printed'
+    print(error)
 
 #final error check
-if halt == 0:
+if error!='' and err!='printed':
+    print(error)
+elif halt == 0:
     print('Error: hlt instruction not found in code')
-elif err != 'printed':
+else:
     for line in AnswerList:
         print(line)
