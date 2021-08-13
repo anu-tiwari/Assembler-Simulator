@@ -151,10 +151,10 @@ def TypeE(array):
 
     encoding += Instruction[array[0]]["opcode"]
     encoding += "000"
-    if ToBinary(LabelsDict[array[2]]) == 'overflow error':
+    if ToBinary(LabelsDict[array[1]]) == 'overflow error':
             return "Error: Overflow"   #value lies outside the range [0,255]
     else:
-            encoding += ToBinary(LabelsDict[array[2]])
+            encoding += ToBinary(LabelsDict[array[1]])
     AnswerList.append(encoding)
     return "encoded"
 
@@ -249,7 +249,7 @@ if error=='':
                 # label
 
                 if len(array)>1 and ((array[1] in Instruction and array[1]!='movimm' and array[1]!='movreg') or array[1]=='mov'):
-                    for i in array[0]:
+                    for i in array[0][:-1]:
                         if i.isalnum()==0 and i!='_':
                             error = 'Invalid Label Name'
                             break
@@ -277,7 +277,7 @@ if error=='':
                 # label
                     if len(array)>1:
                         if (array[1] in Instruction and array[1]!='movimm' and array[1]!='movreg') or array[1]=='mov':
-                            for i in array[0]:
+                            for i in array[0][:-1]:
                                 if i.isalnum()==0 and i!='_':
                                     error = 'Invalid Label Name'
                                     break
