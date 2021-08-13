@@ -205,15 +205,21 @@ if array[0]=='var' and err != 'printed':
                     err = 'printed'
                     break
                 else:
-                    for ele in array[1]:
-                        if ele.isalnum()==0 and ele!='_':
-                            error = 'Error: Invalid Variable Name'
-                            print(error)
-                            err = 'printed'
+                    if array[1].isnumeric()==0:
+                        for ele in array[1]:
+                            if ele.isalnum()==0 and ele!='_':
+                                error = 'Error: Invalid Variable Name'
+                                print(error)
+                                err = 'printed'
+                                break
+                        if error=='':
+                            VariableList.append(array[1])
+                        else: 
                             break
-                    if error=='':
-                        VariableList.append(array[1])
-                    else: 
+                    else:
+                        error = 'Error: Variable Name is Numeric'
+                        print(error)
+                        err = 'printed'
                         break
             else:
                 error = 'Error: Invalid Variable Declaration'
@@ -234,15 +240,21 @@ if array[0]=='var' and err != 'printed':
                             err = 'printed'
                             break
                         else:
-                            for ele in array[1]:
-                                if ele.isalnum()==0 and ele!='_':
-                                    error = 'Error: Invalid Variable Name'
-                                    print(error)
-                                    err = 'printed'
+                            if array[1].isnumeric()==0:
+                                for ele in array[1]:
+                                    if ele.isalnum()==0 and ele!='_':
+                                        error = 'Error: Invalid Variable Name'
+                                        print(error)
+                                        err = 'printed'
+                                        break
+                                if error=='':
+                                    VariableList.append(array[1])
+                                else: 
                                     break
-                            if error=='':
-                                VariableList.append(array[1])
-                            else: 
+                            else:
+                                error = 'Error: Variable Name is Numeric'
+                                print(error)
+                                err = 'printed'
                                 break
                     else:
                         error = 'Error: Invalid Variable Declaration'
