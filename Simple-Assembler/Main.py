@@ -336,6 +336,7 @@ if error=='':
         
         #Type B
         elif (len(array)==3 and array[0] == "mov" and array[2][0]=='$') or array[0] == "rs" or array[0] == "ls":
+            #to check is this mov instruction belongs to TypeB or TypeC
             RetString = TypeB(array)
             if RetString != "encoded":
                 error = RetString
