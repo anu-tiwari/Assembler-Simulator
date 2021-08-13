@@ -189,7 +189,10 @@ if array[0]=='var' and error=='':
                     if ele.isalnum()==0 and ele!='_':
                         error = 'Invalid Variable Name'
                         break
-                VariableList.append(array[1])
+                if error=='':
+                    VariableList.append(array[1])
+                else: 
+                    break
             else:
                 error = 'Invalid Variable Declaration'
                 break
