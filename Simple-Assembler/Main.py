@@ -335,7 +335,7 @@ if error=='':
                 break
         
         #Type B
-        elif array[0] == "mov" or array[0] == "rs" or array[0] == "ls":
+        elif (len(array)==3 and array[0] == "mov" and array[2][0]=='$') or array[0] == "rs" or array[0] == "ls":
             RetString = TypeB(array)
             if RetString != "encoded":
                 error = RetString
