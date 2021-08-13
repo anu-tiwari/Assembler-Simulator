@@ -2,6 +2,7 @@
 from Registers import *
 from InstructionDict import *
 from helper import *
+
 # Type A - arithmetic operations - add, sub, mul, xor, or, and
 # Type B - mov, rs, ls
 # Type C -  mov, div, not
@@ -9,13 +10,14 @@ from helper import *
 # Type E - jmp, jlt, jgt, je
 # Type F - hlt
 
-AnswerList = []       # to store final binary encoding of instructions
+AnswerList = []     # to store final binary encoding of instructions
 Memory = {}         # to store instruction addresses and variable addresses (could be 0:'mov 1 $10') 6: var
 VariableList = []   # to store the variables in a queue while parsing the start of the assembly code
 LabelsDict = {}     # to store the labels and their instruction addresses while parsing the first time (could be label_name: instruction number)
 VariableDict = {}   # var: position
 # functions could return an error message if there is an error and return nothing and add in the answer list if there is none
-# var: 6
+
+
 # Type A
 def TypeA(array):
     encoding = ""
@@ -241,9 +243,6 @@ if array[0]=='var' and err != 'printed':
                 break
         loop_counter+=1
 
-# elif error!='' and err!='printed':
-#     err='printed'
-#     print(error)
 
 # if line is instruction
 if err!="printed":
@@ -289,7 +288,7 @@ if err!="printed":
                 if SingleLine=='':
                     continue
                 if (array[0] in Instruction and array[0]!='movimm' and array[0]!='movreg') or array[0]=='mov':
-                # instruction is normal instruction wihout label
+                # instruction is normal instruction without label
                     Memory[PC]=SingleLine 
                 elif array[0][-1]==':':
                 # label
@@ -330,9 +329,7 @@ if err!="printed":
             except EOFError:
                 break
         PC+=1
-# elif err!='printed':
-#     err = 'printed'
-#     print(error)
+
 
 # adding variables to the end after instructions
 if err != 'printed':
@@ -340,13 +337,8 @@ if err != 'printed':
     for Variable in VariableList:
         VariableDict[Variable] = start
         start+=1
-# elif err != 'printed':
-#     err = 'printed'
-#     print(error)
-# print(VariableDict)
-# print(VariableList)
-# executing instructions from memory
-#print(Memory)
+
+
 halt = 0
 if err != 'printed':
     for key in Memory:
