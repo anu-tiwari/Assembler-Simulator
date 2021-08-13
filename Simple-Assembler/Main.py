@@ -279,17 +279,21 @@ if error=='':
                     Memory[PC]=SingleLine 
                 elif array[0][-1]==':':
                 # label
-                    if len(array)>1 and (array[1] in Instruction and array[1]!='movimm' and array[1]!='movreg') or array[1]=='mov':
-                        for i in array[0]:
-                            if i.isalnum()==0 and i!='_':
-                                error = 'Invalid Label Name'
-                                break
-                            if error=='':
-                                LabelsDict[array[0][:-1]] = PC
-                            else:
-                                break
-                            labelsplit = SingleLine.split(':')
-                            Memory[PC] = labelsplit[1]
+                    if len(array)>1:
+                        if (array[1] in Instruction and array[1]!='movimm' and array[1]!='movreg') or array[1]=='mov':
+                            for i in array[0]:
+                                if i.isalnum()==0 and i!='_':
+                                    error = 'Invalid Label Name'
+                                    break
+                                if error=='':
+                                    LabelsDict[array[0][:-1]] = PC
+                                else:
+                                    break
+                                labelsplit = SingleLine.split(':')
+                                Memory[PC] = labelsplit[1]
+                        else:
+                            error = 'Invalid Label Declaration'
+                            break
                     else:
                         error = 'Invalid Label Declaration'
                         break
