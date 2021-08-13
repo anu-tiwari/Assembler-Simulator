@@ -55,7 +55,7 @@ def TypeB(array):
         encoding += Instruction[array[0]]['opcode']  
         encoding += Registers[array[1]] 
         if ToBinary(array[2]) == 'overflow error':
-            return "Error: Overflow"
+            return "Error: Overflow"   #value lies outside the range [0,255]
         else:
             encoding += ToBinary(array[2])
         AnswerList.append(encoding)
@@ -127,7 +127,11 @@ def TypeD(array):
 
     encoding += Instruction[array[0]]["opcode"]
     encoding += Registers[array[1]]
-    encoding += ToBinary(VariableDict[array[2]])
+    if ToBinary(VariableDict[array[2]]) == 'overflow error':
+            return "Error: Overflow"   #value lies outside the range [0,255]
+    else:
+            encoding += ToBinary(VariableDict[array[2]])
+    
     AnswerList.append(encoding)
     return "encoded"
 
@@ -151,7 +155,10 @@ def TypeE(array):
 
     encoding += Instruction[array[0]]["opcode"]
     encoding += "000"
-    encoding += ToBinary(LabelsDict(array[1]))
+    if ToBinary(LabelsDict[array[2]]) == 'overflow error':
+            return "Error: Overflow"   #value lies outside the range [0,255]
+    else:
+            encoding += ToBinary(LabelsDict[array[2]])
     AnswerList.append(encoding)
     return "encoded"
 
@@ -180,7 +187,7 @@ while True:
         else:
             break
     except EOFError:
-        error = 'File contains no lines of assembly code'
+        error = 'General Syntax Error' #File contains no lines of assembly code
         break
 
 array = SingleLine.split()
