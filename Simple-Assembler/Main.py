@@ -282,12 +282,12 @@ if err!="printed":
                                 print(error)
                                 err = 'printed'
                                 break
-                            if error=='':
-                                LabelsDict[array[0][:-1]] = PC
-                            else:
-                                break
-                            labelsplit = SingleLine.split(':')
-                            Memory[PC] = labelsplit[1]
+                        if error=='':
+                            LabelsDict[array[0][:-1]] = PC
+                        else:
+                            break
+                        labelsplit = SingleLine.split(':')
+                        Memory[PC] = labelsplit[1]
                 else:
                     error = 'Error: Invalid Label Declaration'
                     print(error)
@@ -323,12 +323,12 @@ if err!="printed":
                                         print(error)
                                         err = 'printed'
                                         break
-                                    if error=='':
-                                        LabelsDict[array[0][:-1]] = PC
-                                    else:
-                                        break
-                                    labelsplit = SingleLine.split(':')
-                                    Memory[PC] = labelsplit[1]
+                                if error=='':
+                                    LabelsDict[array[0][:-1]] = PC
+                                else:
+                                    break
+                                labelsplit = SingleLine.split(':')
+                                Memory[PC] = labelsplit[1]
                         else:
                             error = 'Error: Invalid Label Declaration'
                             print(error)
