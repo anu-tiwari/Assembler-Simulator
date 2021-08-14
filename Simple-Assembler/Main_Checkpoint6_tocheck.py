@@ -235,28 +235,34 @@ if array[0]=='var' and err != 'printed':
                 array = SingleLine.split()
                 if array[0]=='var':
                     if len(array)==2:
-                        if array[1] in Instruction or array[1] in Registers or array[1]=='mov':
-                            error = 'Error: Mnemonic used as Variable Name'
-                            print(error)
-                            err = 'printed'
-                            break
-                        else:
-                            if array[1].isnumeric()==0:
-                                for ele in array[1]:
-                                    if ele.isalnum()==0 and ele!='_':
-                                        error = 'Error: Invalid Variable Name'
-                                        print(error)
-                                        err = 'printed'
-                                        break
-                                if error=='':
-                                    VariableList.append(array[1])
-                                else: 
-                                    break
-                            else:
-                                error = 'Error: Variable Name is Numeric'
+                        if array[1] not in VariableList:
+                            if array[1] in Instruction or array[1] in Registers or array[1]=='mov':
+                                error = 'Error: Mnemonic used as Variable Name'
                                 print(error)
                                 err = 'printed'
                                 break
+                            else:
+                                if array[1].isnumeric()==0:
+                                    for ele in array[1]:
+                                        if ele.isalnum()==0 and ele!='_':
+                                            error = 'Error: Invalid Variable Name'
+                                            print(error)
+                                            err = 'printed'
+                                            break
+                                    if error=='':
+                                        VariableList.append(array[1])
+                                    else: 
+                                        break
+                                else:
+                                    error = 'Error: Variable Name is Numeric'
+                                    print(error)
+                                    err = 'printed'
+                                    break
+                        else:
+                            error = 'Error: Variable Name already declared'
+                            print(error)
+                            err = 'printed'
+                            break
                     else:
                         error = 'Error: Invalid Variable Declaration'
                         print(error)
