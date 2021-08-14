@@ -1,6 +1,5 @@
 # CO M21 Assignment
-Repository for Computer Organization, Monsoon 2021 semester, assignment at IIITD
-Created by Team 15:
+Repository for Computer Organization, Monsoon 2021 semester, assignment at IIITD, created by Team 15:
 * 2020032 Apoorva Arya
 * 2020362 Anusha Tiwari
 * 2020404 Saumik Shashwat
