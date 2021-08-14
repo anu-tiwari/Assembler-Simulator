@@ -1,7 +1,7 @@
 #import
 from Registers import *
 from InstructionDict import *
-from Helper import *
+from BinaryConvert import *
 
 # Type A - arithmetic operations - add, sub, mul, xor, or, and
 # Type B - mov, rs, ls
