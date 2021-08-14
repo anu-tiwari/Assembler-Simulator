@@ -12,6 +12,7 @@ from helper import *
 
 AnswerList = []     # to store final binary encoding of instructions
 Memory = {}         # to store instruction addresses and variable addresses (could be 0:'mov 1 $10') 6: var
+InstrLine = {}      # to store line numbers for displaying errors
 VariableList = []   # to store the variables in a queue while parsing the start of the assembly code
 LabelsDict = {}     # to store the labels and their instruction addresses while parsing the first time (could be label_name: instruction number)
 VariableDict = {}   # var: position
@@ -175,11 +176,14 @@ def TypeF(array):
 #consider this the main function
 error = ''
 err = ''
+line_counter = 0
 
 #loop for opening lines of the file (if they are empty lines)
 while True:
     try:
         SingleLine = input()
+        line_counter += 1
+        InstrLine[SingleLine] = line_counter
         if SingleLine=='':
             continue
         else:
@@ -230,6 +234,8 @@ if array[0]=='var' and err != 'printed':
         else:
             try:
                 SingleLine = input()
+                line_counter += 1
+                InstrLine[SingleLine] = line_counter
                 if SingleLine=='':
                     continue
                 array = SingleLine.split()
@@ -326,6 +332,8 @@ if err!="printed":
         else:
             try:
                 SingleLine = input()
+                line_counter += 1
+                InstrLine[SingleLine] = line_counter
                 array = SingleLine.split()
                 if SingleLine=='':
                     continue
@@ -415,8 +423,8 @@ if err != 'printed':
         if array[0] == 'add' or array[0] == 'sub' or array[0] == 'mul' or array[0] == 'xor' or array[0] == 'or' or array[0] == 'and':
             RetString = TypeA(array)
             if RetString != "encoded":
-                print(RetString)
-                error = RetString
+                error = RetString+ ", at line " + str(InstrLine[Inst])
+                print(error)
                 err = 'printed'
                 break
         
@@ -425,8 +433,8 @@ if err != 'printed':
             #to check is this mov instruction belongs to TypeB or TypeC
             RetString = TypeB(array)
             if RetString != "encoded":
-                print(RetString)
-                error = RetString
+                error = RetString+ ", at line " + str(InstrLine[Inst])
+                print(error)
                 err = 'printed'
                 break
         
@@ -435,8 +443,8 @@ if err != 'printed':
         elif array[0] == "mov" or array[0] == "div" or array[0] == "not" or array[0] == "cmp":
             RetString = TypeC(array)
             if RetString != "encoded":
-                print(RetString)
-                error = RetString
+                error = RetString+ ", at line " + str(InstrLine[Inst])
+                print(error)
                 err = 'printed'
                 break
 
@@ -444,8 +452,8 @@ if err != 'printed':
         elif array[0] == "ld" or array[0] == "st":
             RetString = TypeD(array)
             if RetString != "encoded":
-                print(RetString)
-                error = RetString
+                error = RetString+ ", at line " + str(InstrLine[Inst])
+                print(error)
                 err = 'printed'
                 break
 
@@ -453,8 +461,8 @@ if err != 'printed':
         elif array[0] == "jmp" or array[0] == "jlt" or array[0] == "jgt" or array[0] == "je":
             RetString = TypeE(array)
             if RetString != "encoded":
-                print(RetString)
-                error = RetString
+                error = RetString+ ", at line " + str(InstrLine[Inst])
+                print(error)
                 err = 'printed'
                 break
                 
