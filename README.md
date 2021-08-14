@@ -1,8 +1,8 @@
 # CO M21 Assignment
 Repository for Computer Organization, Monsoon 2021 semester, assignment at IIITD, created by Team 15:
-* 2020032 Apoorva Arya
-* 2020362 Anusha Tiwari
-* 2020404 Saumik Shashwat
+* Apoorva Arya 2020032 
+* Anusha Tiwari 2020362 
+* Saumik Shashwat 2020404 
 
 ## Adding code
 * Add the assembler code in the `Simple-Assembler` directory. Add the commands to execute the assembler in `Simple-Assembler/run`.
