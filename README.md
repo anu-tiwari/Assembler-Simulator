@@ -21,4 +21,4 @@ Created by Team 15:
 ## Simple-Assembler
 * The main Python file for the Simple-Assembler is called `Main.py`.
 * Other than Main.py, we have also created three Python modules called `InstructionDict.py`, which stores a dictionary for all the instructions supported by the ISA; `Registers.py`, which stores the binary encoding of all the registers; `helper.py`, which has a function which converts decimal to 8-bit binary, or returns an overflow error.
-* The Shell file `run` inside the `Simple-Assembler` directory the relevant instruction to run `Main.py`.
+* The Shell file `run` inside the `Simple-Assembler` directory contains the relevant instruction to run `Main.py`.
