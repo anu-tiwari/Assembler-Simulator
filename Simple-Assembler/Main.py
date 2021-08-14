@@ -185,6 +185,7 @@ while True:
         else:
             break
     except EOFError:
+        # we assume that an empty file would generate an error prompting the user to add some code
         error = 'Error: General Syntax Error' #File contains no lines of assembly code
         print(error)
         err = 'printed'
