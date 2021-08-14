@@ -1,5 +1,9 @@
 # CO M21 Assignment
-Starter repository for Computer Organization, Monsoon 2021 semester, assignment at IIITD
+Repository for Computer Organization, Monsoon 2021 semester, assignment at IIITD
+Created by Team 15:
+* 2020032 Apoorva Arya
+* 2020362 Anusha Tiwari
+* 2020404 Saumik Shashwat
 
 ## Adding code
 * Add the assembler code in the `Simple-Assembler` directory. Add the commands to execute the assembler in `Simple-Assembler/run`.
@@ -13,3 +17,8 @@ Starter repository for Computer Organization, Monsoon 2021 semester, assignment 
 	1. `--verbose`: Prints verbose output
 	2. `--no-asm`: Does not evaluate the assembler
 	3. `--no-sim`: Does not evaluate the simulator
+
+## Simple-Assembler
+* The main Python file for the Simple-Assembler is called `Main.py`.
+* Other than Main.py, we have also created three Python modules called `InstructionDict.py`, which stores a dictionary for all the instructions supported by the ISA; `Registers.py`, which stores the opcodes of all the registers; `helper.py`, which has a function which converts decimal to 8-bit binary, or returns an overflow error.
+* The Shell file `run` inside the `Simple-Assembler` directory the relevant instruction to run `Main.py`.
