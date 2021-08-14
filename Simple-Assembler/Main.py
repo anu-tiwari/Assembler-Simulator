@@ -329,30 +329,36 @@ if err!="printed":
                     # label
                     if len(array)>1:
                         if (array[1] in Instruction and array[1]!='movimm' and array[1]!='movreg') or array[1]=='mov':
-                            if array[0] in Instruction or array[0] in Registers or array[0]=='mov':
-                                error = 'Error: Mnemonic used as Label Name'
-                                print(error)
-                                err = 'printed'
-                                break
-                            else:
-                                if array[0][:-1].isnumeric()==0:
-                                    for i in array[0][:-1]:
-                                        if i.isalnum()==0 and i!='_':
-                                            error = 'Error: Invalid Label Name'
-                                            print(error)
-                                            err = 'printed'
-                                            break
-                                    if error=='':
-                                        LabelsDict[array[0][:-1]] = PC
-                                    else:
-                                        break
-                                    labelsplit = SingleLine.split(':')
-                                    Memory[PC] = labelsplit[1]
-                                else:
-                                    error = 'Error: Label Name is Numeric'
+                            if array[0][:-1] not in LabelsDict:
+                                if array[0] in Instruction or array[0] in Registers or array[0]=='mov':
+                                    error = 'Error: Mnemonic used as Label Name'
                                     print(error)
                                     err = 'printed'
                                     break
+                                else:
+                                    if array[0][:-1].isnumeric()==0:
+                                        for i in array[0][:-1]:
+                                            if i.isalnum()==0 and i!='_':
+                                                error = 'Error: Invalid Label Name'
+                                                print(error)
+                                                err = 'printed'
+                                                break
+                                        if error=='':
+                                            LabelsDict[array[0][:-1]] = PC
+                                        else:
+                                            break
+                                        labelsplit = SingleLine.split(':')
+                                        Memory[PC] = labelsplit[1]
+                                    else:
+                                        error = 'Error: Label Name is Numeric'
+                                        print(error)
+                                        err = 'printed'
+                                        break
+                            else:
+                                error = 'Error: Label Name already declared'
+                                print(error)
+                                err = 'printed'
+                                break
                         else:
                             error = 'Error: Invalid Label Declaration'
                             print(error)
