@@ -205,7 +205,7 @@ if array[0]=='var' and err != 'printed':
         if loop_counter==0 and SingleLine!='':
             if len(array)==2:
                 if array[1] in Instruction or array[1] in Registers or array[1]=='mov':
-                    error = 'Error: Mnemonic used as Variable Name'
+                    error = 'Error: Mnemonic used as Variable Name, at line ' + str(line_counter)
                     print(error)
                     err = 'printed'
                     break
@@ -213,7 +213,7 @@ if array[0]=='var' and err != 'printed':
                     if array[1].isnumeric()==0:
                         for ele in array[1]:
                             if ele.isalnum()==0 and ele!='_':
-                                error = 'Error: Invalid Variable Name'
+                                error = 'Error: Invalid Variable Name, at line ' + str(line_counter)
                                 print(error)
                                 err = 'printed'
                                 break
@@ -222,12 +222,12 @@ if array[0]=='var' and err != 'printed':
                         else: 
                             break
                     else:
-                        error = 'Error: Variable Name is Numeric'
+                        error = 'Error: Variable Name is Numeric, at line ' + str(line_counter)
                         print(error)
                         err = 'printed'
                         break
             else:
-                error = 'Error: Invalid Variable Declaration'
+                error = 'Error: Invalid Variable Declaration, at line ' + str(line_counter)
                 print(error)
                 err = 'printed'
                 break
@@ -243,7 +243,7 @@ if array[0]=='var' and err != 'printed':
                     if len(array)==2:
                         if array[1] not in VariableList:
                             if array[1] in Instruction or array[1] in Registers or array[1]=='mov':
-                                error = 'Error: Mnemonic used as Variable Name'
+                                error = 'Error: Mnemonic used as Variable Name, at line ' + str(line_counter)
                                 print(error)
                                 err = 'printed'
                                 break
@@ -251,7 +251,7 @@ if array[0]=='var' and err != 'printed':
                                 if array[1].isnumeric()==0:
                                     for ele in array[1]:
                                         if ele.isalnum()==0 and ele!='_':
-                                            error = 'Error: Invalid Variable Name'
+                                            error = 'Error: Invalid Variable Name, at line ' + str(line_counter)
                                             print(error)
                                             err = 'printed'
                                             break
@@ -260,17 +260,17 @@ if array[0]=='var' and err != 'printed':
                                     else: 
                                         break
                                 else:
-                                    error = 'Error: Variable Name is Numeric'
+                                    error = 'Error: Variable Name is Numeric, at line ' + str(line_counter)
                                     print(error)
                                     err = 'printed'
                                     break
                         else:
-                            error = 'Error: Variable Name already declared'
+                            error = 'Error: Variable Name already declared, at line ' + str(line_counter)
                             print(error)
                             err = 'printed'
                             break
                     else:
-                        error = 'Error: Invalid Variable Declaration'
+                        error = 'Error: Invalid Variable Declaration, at line ' + str(line_counter)
                         print(error)
                         err = 'printed'
                         break
@@ -296,7 +296,7 @@ if err!="printed":
                 # label
                 if len(array)>1 and ((array[1] in Instruction and array[1]!='movimm' and array[1]!='movreg') or array[1]=='mov'):
                     if array[0][:-1] in Instruction or array[0][:-1] in Registers or array[0][:-1]=='mov':
-                        error = 'Error: Mnemonic used as Label Name'
+                        error = 'Error: Mnemonic used as Label Name, at line ' + str(line_counter)
                         print(error)
                         err = 'printed'
                         break
@@ -304,7 +304,7 @@ if err!="printed":
                         if array[0][:-1].isnumeric()==0:
                             for i in array[0][:-1]:
                                 if i.isalnum()==0 and i!='_':
-                                    error = 'Error: Invalid Label Name'
+                                    error = 'Error: Invalid Label Name, at line ' + str(line_counter)
                                     print(error)
                                     err = 'printed'
                                     break
@@ -315,17 +315,17 @@ if err!="printed":
                             labelsplit = SingleLine.split(':')
                             Memory[PC] = labelsplit[1]
                         else:
-                            error = 'Error: Label Name is Numeric'
+                            error = 'Error: Label Name is Numeric, at line ' + str(line_counter)
                             print(error)
                             err = 'printed'
                             break
                 else:
-                    error = 'Error: Invalid Label Declaration'
+                    error = 'Error: Invalid Label Declaration, at line ' + str(line_counter)
                     print(error)
                     err = 'printed'
                     break
             else:
-                error = 'Error: Invalid Instruction Mnemonic'
+                error = 'Error: Invalid Instruction Mnemonic, at line ' + str(line_counter)
                 print(error)
                 err = 'printed'
                 break
@@ -346,7 +346,7 @@ if err!="printed":
                         if (array[1] in Instruction and array[1]!='movimm' and array[1]!='movreg') or array[1]=='mov':
                             if array[0][:-1] not in LabelsDict:
                                 if array[0][:-1] in Instruction or array[0][:-1] in Registers or array[0][:-1]=='mov':
-                                    error = 'Error: Mnemonic used as Label Name'
+                                    error = 'Error: Mnemonic used as Label Name, at line ' + str(line_counter)
                                     print(error)
                                     err = 'printed'
                                     break
@@ -354,7 +354,7 @@ if err!="printed":
                                     if array[0][:-1].isnumeric()==0:
                                         for i in array[0][:-1]:
                                             if i.isalnum()==0 and i!='_':
-                                                error = 'Error: Invalid Label Name'
+                                                error = 'Error: Invalid Label Name, at line ' + str(line_counter)
                                                 print(error)
                                                 err = 'printed'
                                                 break
@@ -365,32 +365,32 @@ if err!="printed":
                                         labelsplit = SingleLine.split(':')
                                         Memory[PC] = labelsplit[1]
                                     else:
-                                        error = 'Error: Label Name is Numeric'
+                                        error = 'Error: Label Name is Numeric, at line ' + str(line_counter)
                                         print(error)
                                         err = 'printed'
                                         break
                             else:
-                                error = 'Error: Label Name already declared'
+                                error = 'Error: Label Name already declared, at line ' + str(line_counter)
                                 print(error)
                                 err = 'printed'
                                 break
                         else:
-                            error = 'Error: Invalid Label Declaration'
+                            error = 'Error: Invalid Label Declaration, at line ' + str(line_counter)
                             print(error)
                             err = 'printed'
                             break
                     else:
-                        error = 'Error: Invalid Label Declaration'
+                        error = 'Error: Invalid Label Declaration, at line ' + str(line_counter)
                         print(error)
                         err = 'printed'
                         break
                 elif array[0]=='var':
-                    error = 'Error: Variable Declared not at the beginning'
+                    error = 'Error: Variable Declared not at the beginning, at line ' + str(line_counter)
                     print(error)
                     err = 'printed'
                     break
                 else:
-                    error = 'Error: Invalid Instruction Mnemonic'
+                    error = 'Error: Invalid Instruction Mnemonic, at line ' + str(line_counter)
                     print(error)
                     err = 'printed'
                     break
@@ -411,7 +411,7 @@ halt = 0
 if err != 'printed':
     for key in Memory:
         if halt == 1:
-            error = "Error: Halt appeared more than once / in the middle"
+            error = "Error: Halt appeared more than once / in the middle, at line " + str(InstrLine[Inst])
             print(error)
             err = 'printed'
             break
