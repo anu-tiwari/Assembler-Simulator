@@ -282,7 +282,7 @@ if err!="printed":
             elif array[0][-1]==':':
                 # label
                 if len(array)>1 and ((array[1] in Instruction and array[1]!='movimm' and array[1]!='movreg') or array[1]=='mov'):
-                    if array[0] in Instruction or array[0] in Registers or array[0]=='mov':
+                    if array[0][:-1] in Instruction or array[0][:-1] in Registers or array[0][:-1]=='mov':
                         error = 'Error: Mnemonic used as Label Name'
                         print(error)
                         err = 'printed'
@@ -330,7 +330,7 @@ if err!="printed":
                     if len(array)>1:
                         if (array[1] in Instruction and array[1]!='movimm' and array[1]!='movreg') or array[1]=='mov':
                             if array[0][:-1] not in LabelsDict:
-                                if array[0] in Instruction or array[0] in Registers or array[0]=='mov':
+                                if array[0][:-1] in Instruction or array[0][:-1] in Registers or array[0][:-1]=='mov':
                                     error = 'Error: Mnemonic used as Label Name'
                                     print(error)
                                     err = 'printed'
