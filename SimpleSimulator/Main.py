@@ -1,7 +1,6 @@
 #imports
 import sys
 from BinDec import * 
-import matplotlib.pyplot as plt
 
 #global variables
 Registers = {'000': '0'*16, '001': '0'*16, '010': '0'*16, '011': '0'*16, '100': '0'*16, '101': '0'*16, '110': '0'*16, '111': '0'*16}
@@ -76,6 +75,7 @@ def TypeC(inst):
     global PC
     if inst[:5] == '00011':
         Registers[inst[10:13]] = Registers[inst[13:]]
+        Registers['111'] = '0'*16
 
     elif inst[:5] == '00111':
         dividend = ToDecimal(Registers[inst[10:13]])
@@ -97,13 +97,13 @@ def TypeC(inst):
         val2 = Registers[inst[13:]]
 
         if val1 > val2:
-            Registers['111'] = '0'*13 + '1' + '0'*2
-
-        elif val1 == val2:
             Registers['111'] = '0'*14 + '1' + '0'
 
-        elif val1 < val2:
+        elif val1 == val2:
             Registers['111'] = '0'*15 + '1'
+
+        elif val1 < val2:
+            Registers['111'] = '0'*13 + '1' + '0'*2
 
     PC += 1
 
@@ -143,13 +143,14 @@ def TypeE(inst):
 #Type F
 def TypeF(inst):
     global Halted
-    Halted == True
+    Halted = True
 
 
 #Main
 while Halted == False:
     inst = Memory[PC]
     opcode = inst[:5]
+    print(ToBinaryMem(PC), end = ' ')
 
     if opcode == '00000' or opcode == '00001' or opcode == '00110' or opcode == '01010' or opcode == '01011' or opcode == '01100':
         Registers['111'] = '0'*16
@@ -160,7 +161,8 @@ while Halted == False:
         TypeB(inst)
 
     elif opcode == '00011' or opcode == '00111' or opcode == '01101' or opcode == '01110':
-        Registers['111'] = '0'*16
+        if not(inst[13:] == '111' and opcode == '00011'):
+            Registers['111'] = '0'*16
         TypeC(inst)
     
     elif opcode == '00100' or opcode == '00101':
@@ -175,14 +177,12 @@ while Halted == False:
         TypeF(inst)
 
     #printing after each instruction
-    if Halted == False:
-        print(ToBinaryMem(PC), end = ' ')
-        for i in Registers:
-            if i != '111':
-                print(Registers[i], end = ' ')
-            else: 
-                print(Registers[i])
+    for i in Registers:
+        if i != '111':
+            print(Registers[i], end = ' ')
+        else: 
+            print(Registers[i])
 
-    else:
-        for i in Memory:
-            print(Memory[i])
+else:
+    for i in Memory:
+        print(i)
