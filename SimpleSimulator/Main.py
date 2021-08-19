@@ -139,6 +139,7 @@ def TypeE(inst):
             PC = ToDecimal(inst[8:])
         else:
             PC+=1
+    Registers['111'] = '0'*16
 
 #Type F
 def TypeF(inst):
