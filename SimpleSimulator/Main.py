@@ -1,6 +1,7 @@
 #imports
 import sys
 from BinDec import * 
+import matplotlib.pyplot as plt
 
 #global variables
 Registers = {'000': '0'*16, '001': '0'*16, '010': '0'*16, '011': '0'*16, '100': '0'*16, '101': '0'*16, '110': '0'*16, '111': '0'*16}
@@ -9,6 +10,9 @@ PC = 0
 Cycle = 0
 Halted = False
 Memory = ['0'*16]*256
+
+CycleList = []
+MemoryList = []
 
 #read from stdin
 allLines = sys.stdin.read()
