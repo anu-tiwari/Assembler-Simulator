@@ -11,8 +11,13 @@ Cycle = 0
 Halted = False
 Memory = ['0'*16]*256
 
-CycleList = []
-MemoryList = []
+CycleListInst = []
+CycleListldst = []
+CycleListLabel = []
+MemoryListInst = []
+MemoryListldst = []
+MemoryListLabel = []
+
 
 #read from stdin
 allLines = sys.stdin.read()
@@ -114,7 +119,10 @@ def TypeC(inst):
 #Type D
 def TypeD(inst):
     # inst[0:5]=opcode, inst[5:8] = reg, str[8:] = mem_addr
+    global Cycle
     global PC
+    CycleListldst.append(Cycle)
+    MemoryListldst.append(ToDecimal(inst[8:]))
     if inst[0:5]=='00100':
         Registers[inst[5:8]] = Memory[ToDecimal(inst[8:])]
         PC+=1
@@ -126,21 +134,30 @@ def TypeD(inst):
 def TypeE(inst):
     # str[0:5] = opcode, str[8:] = mem_addr
     global PC
+    global Cycle
     if inst[0:5]=='01111':
         PC = ToDecimal(inst[8:])
+        CycleListLabel.append(Cycle)
+        MemoryListLabel.append(PC)
     elif inst[0:5]=='10000':
         if Registers['111'][13]=='1':
             PC = ToDecimal(inst[8:])
+            CycleListLabel.append(Cycle)
+            MemoryListLabel.append(PC)
         else:
             PC+=1
     elif inst[0:5]=='10001':
         if Registers['111'][14]=='1':
             PC = ToDecimal(inst[8:])
+            CycleListLabel.append(Cycle)
+            MemoryListLabel.append(PC)
         else:
             PC+=1
     elif inst[0:5]=='10010':
         if Registers['111'][15]=='1':
             PC = ToDecimal(inst[8:])
+            CycleListLabel.append(Cycle)
+            MemoryListLabel.append(PC)
         else:
             PC+=1
     Registers['111'] = '0'*16
@@ -153,7 +170,9 @@ def TypeF(inst):
 
 #Main
 while Halted == False:
+    CycleListInst.append(Cycle)
     inst = Memory[PC]
+    MemoryListInst.append(PC)
     opcode = inst[:5]
     print(ToBinaryMem(PC), end = ' ')
 
@@ -188,6 +207,21 @@ while Halted == False:
         else: 
             print(Registers[i])
 
+
+    Cycle += 1
+
 else:
     for i in Memory:
         print(i)
+
+
+plt.scatter(CycleListInst, MemoryListInst, label = 'Instructions')
+plt.scatter(CycleListldst, MemoryListldst, label = 'Load/Store instructions')
+plt.scatter(CycleListLabel, MemoryListLabel, label = 'Label addresses')
+plt.title('Memory Access Trace')
+plt.xlabel('Cycle Number')
+plt.ylabel('Memory Address')
+plt.legend()
+plt.show()
+
+
