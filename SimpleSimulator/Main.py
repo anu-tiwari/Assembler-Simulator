@@ -216,7 +216,7 @@ else:
         print(i)
 
 
-plt.scatter(CycleListInst, MemoryListInst, alpha=0.5, label = 'Instructions')
+plt.scatter(CycleListInst, MemoryListInst, label = 'Instructions')
 plt.scatter(CycleListldst, MemoryListldst, label = 'Load/Store instructions')
 plt.scatter(CycleListLabel, MemoryListLabel, label = 'Label addresses')
 plt.title('Memory Access Trace')
