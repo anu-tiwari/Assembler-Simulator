@@ -30,4 +30,4 @@ Repository for Computer Organization, Monsoon 2021 semester, assignment at IIITD
   * binary to decimal
 * The Shell file `run` inside the `SimpleSimulator` directory contains the relevant instruction to run `Main.py`.
 
-## Bonus Question has been attempted at the end of the `Main.py` file in the SimpleSimulator directory.
+## Question 3 (Bonus) has been attempted at the end of the `Main.py` file in the SimpleSimulator directory.
