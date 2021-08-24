@@ -5,7 +5,7 @@ from BinaryConvert import *
 
 # Type A - arithmetic operations - add, sub, mul, xor, or, and
 # Type B - mov, rs, ls
-# Type C -  mov, div, not
+# Type C -  mov, div, not, cmp
 # Type D - ld, str
 # Type E - jmp, jlt, jgt, je
 # Type F - hlt
