@@ -21,3 +21,11 @@ Repository for Computer Organization, Monsoon 2021 semester, assignment at IIITD
 * The main Python file for the Simple-Assembler is called `Main.py`.
 * Other than Main.py, we have also created three Python modules called `InstructionDict.py`, which stores a dictionary for all the instructions supported by the ISA; `Registers.py`, which stores the binary encoding of all the registers; `BinaryConvert.py`, which has a function which converts decimal to 8-bit binary, or returns an overflow error.
 * The Shell file `run` inside the `Simple-Assembler` directory contains the relevant instruction to run `Main.py`.
+
+## SimpleSimulator
+* The main Python file for the SimpleSimulator is called `Main.py`.
+* Other than Main.py, we have also created one Python module called `BinDec.py`, which has three functions which convert 
+1)decimal to 8-bit binary or gives an overflow error
+2)decimal to 16-bit binary or gives an overflow error
+3)binary to decimal
+* The Shell file `run` inside the `SimpleSimulator` directory contains the relevant instruction to run `Main.py`.
