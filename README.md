@@ -25,7 +25,7 @@ Repository for Computer Organization, Monsoon 2021 semester, assignment at IIITD
 ## SimpleSimulator
 * The main Python file for the SimpleSimulator is called `Main.py`.
 * Other than Main.py, we have also created one Python module called `BinDec.py`, which has three functions which convert 
- * 1)decimal to 8-bit binary or gives an overflow error⋅⋅
- * 2)decimal to 16-bit binary or gives an overflow error⋅⋅
- * 3)binary to decimal⋅⋅
+ * 1)decimal to 8-bit binary or gives an overflow error
+ * 2)decimal to 16-bit binary or gives an overflow error
+ * 3)binary to decimal
 * The Shell file `run` inside the `SimpleSimulator` directory contains the relevant instruction to run `Main.py`.
