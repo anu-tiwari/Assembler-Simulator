@@ -1,5 +1,3 @@
-#test 5 passed
-
 import sys
 from BinDec import * 
 import matplotlib.pyplot as plt
@@ -93,11 +91,11 @@ def TypeB(inst):
 #Type C
 def TypeC(inst):
     global PC
-    if inst[:5] == '00011': #move register
+    if inst[0:5] == '00011': #move register
         Registers[inst[10:13]] = Registers[inst[13:16]]
         Registers['111'] = '0'*16
 
-    elif inst[:5] == '00111': #divide
+    elif inst[0:5] == '00111': #divide
         dividend = ToDecimal(Registers[inst[10:13]])
         divisor = ToDecimal(Registers[inst[13:16]])
         quotient = ToBinary(dividend // divisor)
@@ -106,7 +104,7 @@ def TypeC(inst):
         Registers['000'] = quotient
         Registers['001'] = remainder
 
-    elif inst[:5] == '01101': #invert
+    elif inst[0:5] == '01101': #invert
         a = Registers[inst[13:16]]
         inverted = ''
         for i in a:
@@ -116,7 +114,7 @@ def TypeC(inst):
                 inverted += '0'
         Registers[inst[10:13]] = inverted
 
-    elif inst[:5] == '01110': #compare
+    elif inst[0:5] == '01110': #compare
         val1 = Registers[inst[10:13]]
         val2 = Registers[inst[13:16]]
 
@@ -196,7 +194,7 @@ while Halted == False:
     inst = Memory[PC] #fetching instructions from the memory
     MemoryListInst.append(PC) #appending memory address in memory list for instructions
     
-    opcode = inst[:5]
+    opcode = inst[0:5]
     print(ToBinaryMem(PC), end = ' ') #printing the program counter
 
     if opcode == '00000' or opcode == '00001' or opcode == '00110' or opcode == '01010' or opcode == '01011' or opcode == '01100': #type A
@@ -208,7 +206,7 @@ while Halted == False:
         TypeB(inst)
 
     elif opcode == '00011' or opcode == '00111' or opcode == '01101' or opcode == '01110': #type C
-        if not(inst[13:] == '111' and opcode == '00011'):
+        if not(inst[13:16] == '111' and opcode == '00011'):
             Registers['111'] = '0'*16
         TypeC(inst)
     
@@ -240,5 +238,3 @@ else:
     for i in Memory:
 
         print(i)
-
-
