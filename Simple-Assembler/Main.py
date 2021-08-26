@@ -210,7 +210,7 @@ if array[0]=='var' and err != 'printed':
     while array[0]=='var':
         if loop_counter==0 and SingleLine!='':
             if len(array)==2:
-                if array[1] in Instruction or array[1] in Registers or array[1]=='mov':
+                if array[1] in Instruction or array[1] in Registers or array[1]=='mov' or array[1]=='var':
                     error = 'Error: Mnemonic used as Variable Name, at line ' + str(line_counter)
                     print(error)
                     err = 'printed'
