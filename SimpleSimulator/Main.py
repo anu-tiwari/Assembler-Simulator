@@ -80,11 +80,11 @@ def TypeB(inst):
         Registers[inst[5:8]] = inst[8:].zfill(16)
 
     elif inst[:5] == '01000': #right shift
-        shift = ToDecimal(Registers[inst[8:]])
+        shift = ToDecimal(inst[8:])
         Registers[inst[5:8]] = '0'*shift + Registers[inst[5:8]][:-1 * shift]
 
     elif inst[:5] == '01001': #left shift
-        shift = ToDecimal(Registers[inst[8:]])
+        shift = ToDecimal(inst[8:])
         Registers[inst[5:8]] = Registers[inst[5:8]][shift:] + '0'*shift
     
     PC += 1
