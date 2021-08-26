@@ -169,6 +169,9 @@ def TypeE(array):
 def TypeF(array):
     encoding = ""
 
+    if len(array)!=1:
+        return "Error: Incorrect Syntax used for Instruction"   #error in syntax
+
     if array[0] == 'hlt':
         encoding += Instruction[array[0]]['opcode']
         encoding += "0" * 11
@@ -473,6 +476,11 @@ if err != 'printed':
         elif array[0] == 'hlt':
             halt = 1
             RetString = TypeF(array)
+            if RetString != "encoded":
+                error = RetString+ ", at line " + str(InstrLine[Inst])
+                print(error)
+                err = 'printed'
+                break
         
 
 #final error check
