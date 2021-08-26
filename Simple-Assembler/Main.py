@@ -85,6 +85,9 @@ def TypeC(array):
     if (array[1] not in Registers) or (array[2] not in Registers):
         return "Error: Invalid register name"    #invalid register name
 
+    if array[1]=='FLAGS':
+        return "Error: Invalid use of flags register"
+
     if array[0] != "mov":
         encoding += Instruction[array[0]]['opcode']
         encoding += "00000"    #for unused bits
