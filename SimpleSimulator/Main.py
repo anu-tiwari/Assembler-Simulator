@@ -1,5 +1,3 @@
-#all good (almost :/)
-
 import sys
 from BinDec import * 
 import matplotlib.pyplot as plt
