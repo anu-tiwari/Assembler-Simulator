@@ -38,6 +38,7 @@ def TypeA(inst):
         SUM = ToDecimal(Registers[inst[10:13]]) + ToDecimal(Registers[inst[13:16]])
         if ToBinary(SUM) == 'overflow error':
             Registers['111'] = ('0'*12) + '1' + ('0'*3) #setting overflow flag
+            Registers[inst[7:10]] = ToBinaryTrim(SUM)
         else:
             Registers[inst[7:10]] = ToBinary(SUM)
         PC += 1
@@ -46,6 +47,7 @@ def TypeA(inst):
         DIFF = ToDecimal(Registers[inst[10:13]]) - ToDecimal(Registers[inst[13:16]])
         if ToBinary(DIFF) == 'overflow error':
             Registers['111'] = ('0'*12) + '1' + ('0'*3) #setting overflow flag
+            Registers[inst[7:10]] = ToBinaryTrim(DIFF)
         else:
             Registers[inst[7:10]] = ToBinary(DIFF)
         PC += 1
@@ -54,6 +56,7 @@ def TypeA(inst):
         PROD = ToDecimal(Registers[inst[10:13]]) * ToDecimal(Registers[inst[13:16]])
         if ToBinary(PROD) == 'overflow error':
             Registers['111'] = ('0'*12) + '1' + ('0'*3) #setting overflow flag
+            Registers[inst[7:10]] = ToBinaryTrim(PROD)
         else:
             Registers[inst[7:10]] = ToBinary(PROD)
         PC += 1

@@ -45,3 +45,13 @@ def ToDecimal(binary):
             continue
 
     return decimal
+
+def ToBinaryTrim(decimal):
+    binary = ""
+    n = int(decimal)
+    while n != 0:
+        binary += str(n % 2)
+        n = n//2
+    binary = binary[-1::-1]
+    binary = binary[-16:]
+    return binary
