@@ -1,4 +1,5 @@
-#imports
+#all good (almost :/)
+
 import sys
 from BinDec import * 
 import matplotlib.pyplot as plt
@@ -28,7 +29,8 @@ separateLines = allLines.split('\n')
 
 #storing every line of the binary code into the memory
 for i in range(len(separateLines)):
-    Memory[i] = separateLines[i]
+    if separateLines[i] != "" and separateLines[i] != " ":
+        Memory[i] = separateLines[i]
 
 #Type A
 def TypeA(inst):
@@ -47,7 +49,6 @@ def TypeA(inst):
         DIFF = ToDecimal(Registers[inst[10:13]]) - ToDecimal(Registers[inst[13:16]])
         if ToBinary(DIFF) == 'overflow error':
             Registers['111'] = ('0'*12) + '1' + ('0'*3) #setting overflow flag
-            Registers[inst[7:10]] = ToBinaryTrim(DIFF)
         else:
             Registers[inst[7:10]] = ToBinary(DIFF)
         PC += 1
@@ -80,7 +81,7 @@ def TypeA(inst):
 def TypeB(inst):
     global PC
     if inst[0:5] == '00010': #move immediate
-        Registers[inst[5:8]] = inst[8:].zfill(16)
+        Registers[inst[5:8]] = inst[8:16].zfill(16)
 
     elif inst[0:5] == '01000': #right shift
         shift = ToDecimal(inst[8:16])
@@ -192,6 +193,7 @@ def TypeF(inst): #halt
 
 
 #Main
+
 while Halted == False:
     CycleListInst.append(Cycle) #appending cycle number to the cycle list for instructions
     inst = Memory[PC] #fetching instructions from the memory
@@ -225,10 +227,10 @@ while Halted == False:
         TypeF(inst)
 
     
-    # print(str(variable)+')')
-    # variable+=1
+
     #printing the registers after each instruction
     for i in Registers:
+        
         if i != '111':
             print(Registers[i], end = ' ')
         else: 
@@ -239,6 +241,7 @@ while Halted == False:
 #printing the memory state
 else:
     for i in Memory:
+
         print(i)
 
 

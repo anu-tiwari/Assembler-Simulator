@@ -29,7 +29,8 @@ separateLines = allLines.split('\n')
 
 #storing every line of the binary code into the memory
 for i in range(len(separateLines)):
-    Memory[i] = separateLines[i]
+    if separateLines[i] != "" and separateLines[i] != " ":
+        Memory[i] = separateLines[i]
 
 #Type A
 def TypeA(inst):
