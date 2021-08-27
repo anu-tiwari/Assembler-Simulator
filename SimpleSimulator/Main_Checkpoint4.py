@@ -1,4 +1,3 @@
-#imports
 import sys
 from BinDec import * 
 import matplotlib.pyplot as plt
@@ -80,7 +79,7 @@ def TypeA(inst):
 def TypeB(inst):
     global PC
     if inst[0:5] == '00010': #move immediate
-        Registers[inst[5:8]] = inst[8:].zfill(16)
+        Registers[inst[5:8]] = inst[8:16].zfill(16)
 
     elif inst[0:5] == '01000': #right shift
         shift = ToDecimal(inst[8:16])
@@ -192,6 +191,7 @@ def TypeF(inst): #halt
 
 
 #Main
+
 while Halted == False:
     CycleListInst.append(Cycle) #appending cycle number to the cycle list for instructions
     inst = Memory[PC] #fetching instructions from the memory
@@ -225,10 +225,10 @@ while Halted == False:
         TypeF(inst)
 
     
-    # print(str(variable)+')')
-    # variable+=1
+
     #printing the registers after each instruction
     for i in Registers:
+        
         if i != '111':
             print(Registers[i], end = ' ')
         else: 
@@ -239,16 +239,5 @@ while Halted == False:
 #printing the memory state
 else:
     for i in Memory:
+
         print(i)
-
-
-#scatter plot (bonus question)
-#we have categorised our memory access trace, as-
-plt.scatter(CycleListInst, MemoryListInst, label = 'Instructions') #1) fetching instructions from memory
-plt.scatter(CycleListldst, MemoryListldst, label = 'Load/Store instructions') #2) accessing memory addresses for load/store instructions
-plt.scatter(CycleListLabel, MemoryListLabel, label = 'Label addresses') #3) accessing memory addresses for jump instructions
-plt.title('Memory Access Trace') #adding title to the plot
-plt.xlabel('Cycle Number') #adding label on the x-axis
-plt.ylabel('Memory Address') #adding label on the y-axis
-plt.legend() #showing the legend for our categories
-plt.show() #showing the scatter plot
