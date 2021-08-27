@@ -189,7 +189,6 @@ def TypeF(inst): #halt
 
 
 #Main
-variable = 0
 while Halted == False:
     CycleListInst.append(Cycle) #appending cycle number to the cycle list for instructions
     inst = Memory[PC] #fetching instructions from the memory
@@ -223,11 +222,10 @@ while Halted == False:
         TypeF(inst)
 
     
-    print(str(variable)+')')
-    variable+=1
+    # print(str(variable)+')')
+    # variable+=1
     #printing the registers after each instruction
     for i in Registers:
-        
         if i != '111':
             print(Registers[i], end = ' ')
         else: 
@@ -238,9 +236,7 @@ while Halted == False:
 #printing the memory state
 else:
     for i in Memory:
-        print(str(variable)+')')
         print(i)
-        variable+=1
 
 
 #scatter plot (bonus question)
